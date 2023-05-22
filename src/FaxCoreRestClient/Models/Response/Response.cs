@@ -1,10 +1,9 @@
-using System.Collections.Generic;
 using System.Runtime.Serialization;
 using System.Text.Json.Serialization;
 
 namespace FaxCoreRestClient.Models.Response
 {
-    public class CollectionResponse<T> where T : class
+    public class Response<T> where T : class
     {
         /// <summary>
         ///     Gets or Sets the Response Status
@@ -25,6 +24,6 @@ namespace FaxCoreRestClient.Models.Response
         /// </summary>
         [DataMember(Name = "data", EmitDefaultValue = false)]
         [JsonPropertyName("data")]
-        public IEnumerable<T> Data { get; set; }
+        public T Data { get; set; }
     }
 }

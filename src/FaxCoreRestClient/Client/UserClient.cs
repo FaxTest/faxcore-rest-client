@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using FaxCoreRestClient.Models.Request;
 using FaxCoreRestClient.Models.Response;
@@ -30,11 +31,24 @@ namespace FaxCoreRestClient.Client
         ///     Updates the specified user's configuration
         ///     ("/api/users/config")
         /// </summary>
-        /// <param name="request"></param>
+        /// <param name="request">
+        ///     <see cref="UserConfigRequest" />
+        /// </param>
         /// <returns></returns>
         public async Task<StatusOnlyResponse> UpdateUserConfig(UserConfigRequest request)
         {
-            return await Post<StatusOnlyResponse, UserConfigRequest>("/api/users/config", request);
+            return await Put<StatusOnlyResponse, UserConfigRequest>("/api/users/config", request);
+        }
+
+        /// <summary>
+        /// </summary>
+        /// <param name="user">The CreateUserRequest for the user being created <see cref="CreateUserRequest" /></param>
+        /// <returns>
+        ///     The response with the newly created user's UserId <see cref="Response{T}" /> <seealso cref="UserListItem" />
+        /// </returns>
+        public async Task<Response<UserListItem>> CreateUser(CreateUserRequest user)
+        {
+            return await Post<Response<UserListItem>, CreateUserRequest>("/api/users/create", user);
         }
 
         /// <summary>
@@ -45,9 +59,10 @@ namespace FaxCoreRestClient.Client
         ///     <see cref="UserListRequest" />
         /// </param>
         /// <returns>A list of User Objects (<see cref="UserListItem" />)</returns>
-        public async Task<CollectionResponse<UserListItem>> UserList(UserListRequest request)
+        public async Task<Response<IEnumerable<UserListItem>>> UserList(UserListRequest request)
         {
-            return await Post<CollectionResponse<UserListItem>, UserListRequest>("/api/users/list", request);
+            return await Post<Response<IEnumerable<UserListItem>>, UserListRequest>("/api/users/list",
+                request);
         }
 
         /// <summary>
