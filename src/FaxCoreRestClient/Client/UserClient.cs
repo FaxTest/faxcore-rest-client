@@ -65,34 +65,6 @@ namespace FaxCoreRestClient.Client
                 request);
         }
 
-        /// <summary>
-        ///     Sends a confirmation email to the specified user
-        ///     ("/api/users/sendConfirmEmail")
-        /// </summary>
-        /// <param name="confirmEmailRequest">
-        ///     <see cref="ConfirmEmailRequest" />
-        /// </param>
-        /// <returns>A status report of the attempt to send the email <see cref="StatusOnlyResponse" /></returns>
-        public async Task<StatusOnlyResponse> SendConfirmEmail(ConfirmEmailRequest confirmEmailRequest)
-        {
-            return await Post<StatusOnlyResponse, ConfirmEmailRequest>("/api/users/sendConfirmEmail",
-                confirmEmailRequest);
-        }
-
-        /// <summary>
-        ///     Sends the specified custom email template to the specified user
-        ///     ("/api/users/sendCustomEmail")
-        /// </summary>
-        /// <param name="customEmailRequest">
-        ///     <see cref="CustomEmailRequest" />
-        /// </param>
-        /// <returns>
-        ///     <see cref="StatusOnlyResponse" />
-        /// </returns>
-        public async Task<StatusOnlyResponse> SendCustomEmail(CustomEmailRequest customEmailRequest)
-        {
-            return await Post<StatusOnlyResponse, CustomEmailRequest>("/api/users/sendCustomEmail", customEmailRequest);
-        }
 
         /// <summary>
         ///     Search for users
