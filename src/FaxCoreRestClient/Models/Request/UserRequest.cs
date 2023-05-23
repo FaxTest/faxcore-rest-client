@@ -5,7 +5,7 @@ namespace FaxCoreRestClient.Models.Request
     /// <summary>
     ///     Request to delete a user
     /// </summary>
-    public class DeleteUserRequest
+    public class UserRequest
     {
         /// <summary>
         ///     The UserId of the user to be deleted

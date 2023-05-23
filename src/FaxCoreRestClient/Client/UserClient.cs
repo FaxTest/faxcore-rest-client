@@ -89,9 +89,24 @@ namespace FaxCoreRestClient.Client
         /// <returns>
         ///     <see cref="Response{T}" /> <seealso cref="string" />
         /// </returns>
-        public async Task<Response<string>> DeleteUser(DeleteUserRequest userToDelete)
+        public async Task<Response<string>> DeleteUser(UserRequest userToDelete)
         {
-            return await Delete<Response<string>, DeleteUserRequest>("/api/users/delete", userToDelete);
+            return await Delete<Response<string>, UserRequest>("/api/users/delete", userToDelete);
+        }
+
+        /// <summary>
+        ///     Get the specified user's details
+        ///     ("/api/users/details")
+        /// </summary>
+        /// <param name="user">
+        ///     <see cref="UserRequest" />
+        /// </param>
+        /// <returns>
+        ///     <see cref="Response{T}" /> <seealso cref="UserData" />
+        /// </returns>
+        public async Task<Response<UserData>> GetUserDetails(UserRequest user)
+        {
+            return await Post<Response<UserData>, UserRequest>("/api/users/details", user);
         }
 
         /// <summary>
