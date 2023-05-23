@@ -52,6 +52,20 @@ namespace FaxCoreRestClient.Client
         }
 
         /// <summary>
+        ///     Deactivates the specified user(s)
+        ///     ("/api/users/deactivate")
+        /// <param name="users">The users to be deactivated <see cref="UserListRequest" /></param>
+        /// <returns>
+        ///     <see cref="Response{T}" /> <seealso cref="string" />
+        /// </returns>
+        /// </summary>
+        public async Task<Response<string>> DeactivateUser(UserListRequest users)
+        {
+            return await Post<Response<string>, UserListRequest>("/api/users/deactivate", users);
+        }
+
+
+        /// <summary>
         ///     Get a List of Users for the specified domain.
         ///     ("/api/users/list")
         /// </summary>
@@ -65,6 +79,20 @@ namespace FaxCoreRestClient.Client
                 request);
         }
 
+        /// <summary>
+        /// Delete the specified user
+        /// ("/api/users/delete")
+        /// </summary>
+        /// <param name="userToDelete">
+        ///     <see cref="DeleteUserRequest" />
+        /// </param>
+        /// <returns>
+        ///     <see cref="Response{T}" /> <seealso cref="string" />
+        /// </returns>
+        public async Task<Response<string>> DeleteUser(DeleteUserRequest userToDelete)
+        {
+            return await Delete<Response<string>, DeleteUserRequest>("/api/users/delete", userToDelete);
+        }
 
         /// <summary>
         ///     Search for users
