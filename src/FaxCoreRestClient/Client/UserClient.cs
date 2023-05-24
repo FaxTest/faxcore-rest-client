@@ -54,10 +54,10 @@ namespace FaxCoreRestClient.Client
         /// <summary>
         ///     Deactivates the specified user(s)
         ///     ("/api/users/deactivate")
-        /// <param name="users">The users to be deactivated <see cref="UserListRequest" /></param>
-        /// <returns>
-        ///     <see cref="Response{T}" /> <seealso cref="string" />
-        /// </returns>
+        ///     <param name="users">The users to be deactivated <see cref="UserListRequest" /></param>
+        ///     <returns>
+        ///         <see cref="Response{T}" /> <seealso cref="string" />
+        ///     </returns>
         /// </summary>
         public async Task<Response<string>> DeactivateUser(UserListRequest users)
         {
@@ -80,11 +80,11 @@ namespace FaxCoreRestClient.Client
         }
 
         /// <summary>
-        /// Delete the specified user
-        /// ("/api/users/delete")
+        ///     Delete the specified user
+        ///     ("/api/users/delete")
         /// </summary>
         /// <param name="userToDelete">
-        ///     <see cref="DeleteUserRequest" />
+        ///     <see cref="UserRequest" />
         /// </param>
         /// <returns>
         ///     <see cref="Response{T}" /> <seealso cref="string" />
@@ -107,6 +107,16 @@ namespace FaxCoreRestClient.Client
         public async Task<Response<UserData>> GetUserDetails(UserRequest user)
         {
             return await Post<Response<UserData>, UserRequest>("/api/users/details", user);
+        }
+
+        /// <summary>
+        ///     Get the specified user's fax settings
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
+        public async Task<Response<FaxSettings>> GetUserFaxSettings(UserRequest user)
+        {
+            return await Post<Response<FaxSettings>, UserRequest>("/api/users/faxsettings", user);
         }
 
         /// <summary>
