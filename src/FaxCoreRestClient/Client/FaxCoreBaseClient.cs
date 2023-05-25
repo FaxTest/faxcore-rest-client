@@ -23,7 +23,7 @@ namespace FaxCoreRestClient.Client
             _clientSecret = clientSecret;
 
             _baseUrl = baseUrl[baseUrl.Length - 1] == '/' ? baseUrl.Substring(0, baseUrl.Length - 1) : baseUrl;
-
+            Console.WriteLine(_baseUrl);
             _headers.Add("Accept", "application/json");
             _headers.Add("Accept-Encoding", "gzip, deflate");
             _headers.Add("Cache-Control", "no-cache");
@@ -36,7 +36,6 @@ namespace FaxCoreRestClient.Client
         protected async Task<T> Get<T>(string urlPath)
             where T : class
         {
-            _headers.Add("Content-Type", "application/json");
             await PrepareClient();
 
             var url = $"{_baseUrl}/{urlPath}";
@@ -53,7 +52,6 @@ namespace FaxCoreRestClient.Client
             where U : class
             where T : class
         {
-            _headers.Add("Content-Type", "application/json");
             await PrepareClient();
 
             var url = $"{_baseUrl}/{urlPath}";
@@ -71,7 +69,6 @@ namespace FaxCoreRestClient.Client
             where U : class
             where T : class
         {
-            _headers.Add("Content-Type", "application/json");
             await PrepareClient();
 
             var url = $"{_baseUrl}/{urlPath}";
@@ -96,7 +93,6 @@ namespace FaxCoreRestClient.Client
             where U : class
             where T : class
         {
-            _headers.Add("Content-Type", "application/json");
             await PrepareClient();
 
             _httpClient.AddHeaders(_headers);
@@ -122,18 +118,25 @@ namespace FaxCoreRestClient.Client
         private async Task<TokenResponse> GetToken()
         {
             var client = new HttpClient();
-            _headers.Add("Content-Type", "application/x-www-form-urlencoded");
             _headers.Remove("Authorization");
+
 
             client.AddHeaders(_headers);
 
-            var response = await client.PostAsync($"{_baseUrl}/oauth/token", new FormUrlEncodedContent(
-                new Dictionary<string, string>
-                {
-                    { "grant_type", "password" },
-                    { "client_id", _clientId },
-                    { "client_secret", _clientSecret }
-                }));
+            var request = new HttpRequestMessage
+            {
+                Method = HttpMethod.Post,
+                RequestUri = new Uri($"{_baseUrl}/oauth/token"),
+                Content = new FormUrlEncodedContent(
+                    new Dictionary<string, string>
+                    {
+                        { "grant_type", "password" },
+                        { "client_id", _clientId },
+                        { "client_secret", _clientSecret }
+                    })
+            };
+
+            var response = await client.SendAsync(request);
 
             var tokenResult =
                 await JsonSerializer.DeserializeAsync<TokenResponse>(response.Content.ReadAsStreamAsync().Result);
