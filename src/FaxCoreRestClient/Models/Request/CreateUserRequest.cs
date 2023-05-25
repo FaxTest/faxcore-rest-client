@@ -58,28 +58,28 @@ namespace FaxCoreRestClient.Models.Request
         public bool IsActive { get; set; }
 
         /// <summary>
-        ///     The new users display name
+        ///     The new user's display name
         /// </summary>
         [DataMember(Name = "displayName", EmitDefaultValue = false)]
         [JsonPropertyName("displayName")]
         public string DisplayName { get; set; }
 
         /// <summary>
-        ///     The new users first name
+        ///     The new user's first name
         /// </summary>
         [DataMember(Name = "firstName", EmitDefaultValue = false)]
         [JsonPropertyName("firstName")]
         public string FirstName { get; set; }
 
         /// <summary>
-        ///     The new users last name
+        ///     The new user's last name
         /// </summary>
         [DataMember(Name = "lastName", EmitDefaultValue = false)]
         [JsonPropertyName("lastName")]
         public string LastName { get; set; }
 
         /// <summary>
-        ///     The new users company name
+        ///     The new user's company name
         /// </summary>
         [DataMember(Name = "companyName", EmitDefaultValue = false)]
         [JsonPropertyName("companyName")]
@@ -93,7 +93,7 @@ namespace FaxCoreRestClient.Models.Request
         public PreferredAddressType PreferredAddressType { get; set; }
 
         /// <summary>
-        ///     The new users email address
+        ///     The new user's email address
         /// </summary>
         [DataMember(Name = "email", EmitDefaultValue = false)]
         [JsonPropertyName("email")]

@@ -1,30 +1,24 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using FaxCoreRestClient.Models.Request;
 using FaxCoreRestClient.Models.Response;
 
 namespace FaxCoreRestClient.Client
 {
-    /// <summary>
-    ///     Rest Client for FaxCore User Routes
-    /// </summary>
-    public class UserClient : FaxCoreBaseClient
+    public partial class FaxClient
     {
-        public UserClient(string baseUrl, string clientId, string clientSecret) : base(baseUrl, clientId, clientSecret)
-        {
-        }
-
         /// <summary>
         ///     Sends a list of users to be activated
         ///     ("/api/users/create")
         /// </summary>
-        /// <param name="request">A list of users to be activated <see cref="UserActivationRequest" /></param>
+        /// <param name="users">A list of users to be activated</param>
         /// <returns>
         ///     <see cref="StatusOnlyResponse" />
         /// </returns>
-        public async Task<StatusOnlyResponse> ActivateUsers(UserActivationRequest request)
+        public async Task<StatusOnlyResponse> ActivateUsers(IEnumerable<string> users)
         {
-            return await Post<StatusOnlyResponse, UserActivationRequest>("/api/users/create", request);
+            return await Post<StatusOnlyResponse, object>("/api/users/create", new { userIDList = users.ToArray() });
         }
 
         /// <summary>
@@ -41,6 +35,7 @@ namespace FaxCoreRestClient.Client
         }
 
         /// <summary>
+        ///     Create new user in a specific domain. Only create in domain which user belong to.
         /// </summary>
         /// <param name="user">The CreateUserRequest for the user being created <see cref="CreateUserRequest" /></param>
         /// <returns>
@@ -54,14 +49,15 @@ namespace FaxCoreRestClient.Client
         /// <summary>
         ///     Deactivates the specified user(s)
         ///     ("/api/users/deactivate")
-        ///     <param name="users">The users to be deactivated <see cref="UserListRequest" /></param>
+        ///     <param name="users">A list of users to be deactivated</param>
         ///     <returns>
         ///         <see cref="Response{T}" /> <seealso cref="string" />
         ///     </returns>
         /// </summary>
-        public async Task<Response<string>> DeactivateUser(UserListRequest users)
+        public async Task<Response<string>> DeactivateUser(IEnumerable<string> users)
         {
-            return await Post<Response<string>, UserListRequest>("/api/users/deactivate", users);
+            var requestData = new { userIDList = users.ToArray() };
+            return await Post<Response<string>, object>("/api/users/deactivate", requestData);
         }
 
 
@@ -69,54 +65,83 @@ namespace FaxCoreRestClient.Client
         ///     Get a List of Users for the specified domain.
         ///     ("/api/users/list")
         /// </summary>
-        /// <param name="request">
-        ///     <see cref="UserListRequest" />
+        /// <param name="domainName">
+        ///     The domain to get the list of users from
         /// </param>
         /// <returns>A list of User Objects (<see cref="UserListItem" />)</returns>
-        public async Task<Response<IEnumerable<UserListItem>>> UserList(UserListRequest request)
+        public async Task<Response<IEnumerable<UserListItem>>> UserList(string domainName)
         {
-            return await Post<Response<IEnumerable<UserListItem>>, UserListRequest>("/api/users/list",
-                request);
+            return await Post<Response<IEnumerable<UserListItem>>, object>("/api/users/list",
+                new { domain = domainName });
         }
 
         /// <summary>
         ///     Delete the specified user
         ///     ("/api/users/delete")
         /// </summary>
-        /// <param name="userToDelete">
-        ///     <see cref="UserRequest" />
+        /// <param name="userId">
+        ///     The user id of the user to be deleted
         /// </param>
         /// <returns>
         ///     <see cref="Response{T}" /> <seealso cref="string" />
         /// </returns>
-        public async Task<Response<string>> DeleteUser(UserRequest userToDelete)
+        public async Task<Response<string>> DeleteUser(string userId)
         {
-            return await Delete<Response<string>, UserRequest>("/api/users/delete", userToDelete);
+            return await Delete<Response<string>, object>("/api/users/delete", new { user = userId });
         }
 
         /// <summary>
         ///     Get the specified user's details
         ///     ("/api/users/details")
         /// </summary>
-        /// <param name="user">
-        ///     <see cref="UserRequest" />
+        /// <param name="userId">
+        ///     The userId of the user to get the details for
         /// </param>
         /// <returns>
         ///     <see cref="Response{T}" /> <seealso cref="UserData" />
         /// </returns>
-        public async Task<Response<UserData>> GetUserDetails(UserRequest user)
+        public async Task<Response<UserData>> GetUserDetails(string userId)
         {
-            return await Post<Response<UserData>, UserRequest>("/api/users/details", user);
+            return await Post<Response<UserData>, object>("/api/users/details", new { user = userId });
         }
 
         /// <summary>
         ///     Get the specified user's fax settings
         /// </summary>
-        /// <param name="user"></param>
+        /// <param name="userId"></param>
         /// <returns></returns>
-        public async Task<Response<FaxSettings>> GetUserFaxSettings(UserRequest user)
+        public async Task<Response<FaxSettings>> GetUserFaxSettings(string userId)
         {
-            return await Post<Response<FaxSettings>, UserRequest>("/api/users/faxsettings", user);
+            return await Post<Response<FaxSettings>, object>("/api/users/faxsettings", new { user = userId });
+        }
+
+        /// <summary>
+        ///     Move user to another domain
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="domainName"></param>
+        /// <returns>
+        ///     <see cref="Response{T}" /> <seealso cref="string" />
+        /// </returns>
+        public async Task<Response<string>> ChangeUserDomain(string userId, string domainName)
+        {
+            var request = new
+            {
+                UserId = userId,
+                DomainName = domainName
+            };
+
+            return await Put<Response<string>, object>("/api/users/domain", request);
+        }
+
+        /// <summary>
+        ///     Update the logged in user's profile details
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task<Response<string>> UpdateUser(UpdateUserDetails request)
+        {
+            return await Put<Response<string>, UpdateUserDetails>("/api/users/faxsettings", request);
         }
 
         /// <summary>
