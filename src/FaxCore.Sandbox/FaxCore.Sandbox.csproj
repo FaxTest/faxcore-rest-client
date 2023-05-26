@@ -8,7 +8,11 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\FaxCoreRestClient\FaxCoreRestClient.csproj" />
+        <ProjectReference Include="..\FaxCoreRestClient\FaxCoreRestClient.csproj"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="RestSharp" Version="110.2.0"/>
     </ItemGroup>
 
 </Project>

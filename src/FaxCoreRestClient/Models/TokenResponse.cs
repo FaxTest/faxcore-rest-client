@@ -1,59 +1,62 @@
 using System;
 using System.Text.Json.Serialization;
+using FaxCoreRestClient.Tools;
 
 namespace FaxCoreRestClient.Models
 {
     /// <summary>
     ///     FaxCore API Token Response
     /// </summary>
-    internal class TokenResponse
+    public class TokenResponse
     {
         /// <summary>
         ///     Gets or Sets Access Token
         /// </summary>
         [JsonPropertyName("access_token")]
-        internal string Token { get; set; }
+        public string Token { get; set; }
 
         /// <summary>
         ///     Gets or Sets Token Type
         /// </summary>
         [JsonPropertyName("token_type")]
-        internal string TokenType { get; set; }
+        public string TokenType { get; set; }
 
         /// <summary>
         ///     Gets or Sets Expires In
         /// </summary>
         [JsonPropertyName("expires_in")]
-        internal int ExpiresIn { get; set; }
+        public int ExpiresIn { get; set; }
 
         /// <summary>
         ///     Gets or Sets Refresh Token
         /// </summary>
         [JsonPropertyName("refresh_token")]
-        internal string RefreshToken { get; set; }
+        public string RefreshToken { get; set; }
 
         /// <summary>
         ///     Gets or Sets Persistent state
         /// </summary>
         [JsonPropertyName(".persistent")]
-        internal string Persistent { get; set; }
+        public string Persistent { get; set; }
 
         /// <summary>
         ///     Gets or Sets if Refresh can be used
         /// </summary>
         [JsonPropertyName(".refresh")]
-        internal bool Refresh { get; set; }
+        public string Refresh { get; set; }
 
         /// <summary>
         ///     Gets or Sets the Issued Date
         /// </summary>
+        [JsonConverter(typeof(FaxCoreDateTimeConverter))]
         [JsonPropertyName(".issued")]
-        internal DateTime Issued { get; set; }
+        public DateTime Issued { get; set; }
 
         /// <summary>
         ///     Gets or Sets the Expires Date
         /// </summary>
+        [JsonConverter(typeof(FaxCoreDateTimeConverter))]
         [JsonPropertyName(".expires")]
-        internal DateTime Expires { get; set; }
+        public DateTime Expires { get; set; }
     }
 }

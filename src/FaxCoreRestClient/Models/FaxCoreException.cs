@@ -1,5 +1,6 @@
 using System;
 using System.Net;
+using FaxCoreRestClient.Client;
 
 namespace FaxCoreRestClient.Models
 {
@@ -8,7 +9,7 @@ namespace FaxCoreRestClient.Models
     /// </summary>
     public class FaxCoreException : Exception
     {
-        public FaxCoreException(string message, HttpStatusCode errorCode, object httpResponse) : base(message)
+        public FaxCoreException(string message, HttpStatusCode errorCode, string httpResponse) : base(message)
         {
             ErrorCode = errorCode;
             HttpResponse = httpResponse;
@@ -22,6 +23,10 @@ namespace FaxCoreRestClient.Models
         public FaxCoreException(string message, HttpStatusCode errorCode) : base(message)
         {
             ErrorCode = errorCode;
+        }
+
+        public FaxCoreException(string message, Exception innerException): base(message, innerException)
+        {
         }
 
         /// <summary>
@@ -41,6 +46,6 @@ namespace FaxCoreRestClient.Models
         ///     Gets or sets the Http Response Body
         /// </summary>
         /// <value>The Http Response Body</value>
-        public object HttpResponse { get; set; }
+        public string HttpResponse { get; set; }
     }
 }

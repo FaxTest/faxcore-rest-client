@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
+using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using FaxCoreRestClient.Models;
@@ -23,14 +24,14 @@ namespace FaxCoreRestClient.Client
             _clientSecret = clientSecret;
 
             _baseUrl = baseUrl[baseUrl.Length - 1] == '/' ? baseUrl.Substring(0, baseUrl.Length - 1) : baseUrl;
-            Console.WriteLine(_baseUrl);
             _headers.Add("Accept", "application/json");
             _headers.Add("Accept-Encoding", "gzip, deflate");
             _headers.Add("Cache-Control", "no-cache");
             _headers.Add("Connection", "keep-alive");
-            _headers.Add("Host", "FaxCoreRestClient");
 
+            
             _httpClient = new HttpClient();
+            _httpClient.Timeout = TimeSpan.FromMinutes(1);
         }
 
         protected async Task<T> Get<T>(string urlPath)
@@ -55,13 +56,17 @@ namespace FaxCoreRestClient.Client
             await PrepareClient();
 
             var url = $"{_baseUrl}/{urlPath}";
-
-            var response = await _httpClient.PostAsync(url,
-                new StringContent(JsonSerializer.Serialize(data)));
+            var request = new HttpRequestMessage()
+            {
+                RequestUri = new Uri(url),
+                Method = HttpMethod.Post,
+                Content = new StringContent(JsonSerializer.Serialize(data), Encoding.UTF8, "application/json")
+            };
+            var response = await _httpClient.SendAsync(request);
             var result = await response.Content.ReadAsStringAsync();
-
-            if (!response.IsSuccessStatusCode) throw new FaxCoreException(result, response.StatusCode, result);
-
+            if (!response.IsSuccessStatusCode)
+                throw new FaxCoreException(result, response.StatusCode, result);
+            
             return JsonSerializer.Deserialize<T>(result);
         }
 
@@ -99,8 +104,14 @@ namespace FaxCoreRestClient.Client
 
             var url = $"{_baseUrl}/{urlPath}";
 
-            var response = await _httpClient.PutAsync(url,
-                new StringContent(JsonSerializer.Serialize(data)));
+            var request = new HttpRequestMessage()
+            {
+                Method = HttpMethod.Put,
+                RequestUri = new Uri(url),
+                Content = new StringContent(JsonSerializer.Serialize(data), Encoding.UTF8, "application/json")
+            };
+            
+            var response = await _httpClient.SendAsync(request);
             var result = await response.Content.ReadAsStringAsync();
 
             if (!response.IsSuccessStatusCode) throw new FaxCoreException(result, response.StatusCode, result);
@@ -110,18 +121,19 @@ namespace FaxCoreRestClient.Client
 
         private async Task ValidateToken()
         {
-            if (_token == null || _token.Expires < DateTime.Now) _token = await GetToken();
+            if (_token == null || _token.Expires < DateTime.Now)
+            {
+                _token = await GetToken();
+            }
 
             _headers["Authorization"] = $"Bearer {_token.Token}";
         }
 
         private async Task<TokenResponse> GetToken()
         {
-            var client = new HttpClient();
             _headers.Remove("Authorization");
 
-
-            client.AddHeaders(_headers);
+            _httpClient.AddHeaders(_headers);
 
             var request = new HttpRequestMessage
             {
@@ -130,17 +142,16 @@ namespace FaxCoreRestClient.Client
                 Content = new FormUrlEncodedContent(
                     new Dictionary<string, string>
                     {
-                        { "grant_type", "password" },
+                        { "grant_type", "client_credentials" },
                         { "client_id", _clientId },
                         { "client_secret", _clientSecret }
                     })
             };
-
-            var response = await client.SendAsync(request);
-
+            
+            var response = await _httpClient.SendAsync(request);
             var tokenResult =
-                await JsonSerializer.DeserializeAsync<TokenResponse>(response.Content.ReadAsStreamAsync().Result);
-
+                await JsonSerializer.DeserializeAsync<TokenResponse>(await response.Content.ReadAsStreamAsync());
+            
             return tokenResult;
         }
 
