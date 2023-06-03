@@ -5,6 +5,7 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using FaxCoreRestClient.Models;
+using FaxCoreRestClient.Models.Response;
 using FaxCoreRestClient.Tools;
 
 namespace FaxCoreRestClient.Client
@@ -29,7 +30,7 @@ namespace FaxCoreRestClient.Client
             _headers.Add("Cache-Control", "no-cache");
             _headers.Add("Connection", "keep-alive");
 
-            
+
             _httpClient = new HttpClient();
             _httpClient.Timeout = TimeSpan.FromMinutes(1);
         }
@@ -56,7 +57,7 @@ namespace FaxCoreRestClient.Client
             await PrepareClient();
 
             var url = $"{_baseUrl}/{urlPath}";
-            var request = new HttpRequestMessage()
+            var request = new HttpRequestMessage
             {
                 RequestUri = new Uri(url),
                 Method = HttpMethod.Post,
@@ -66,7 +67,7 @@ namespace FaxCoreRestClient.Client
             var result = await response.Content.ReadAsStringAsync();
             if (!response.IsSuccessStatusCode)
                 throw new FaxCoreException(result, response.StatusCode, result);
-            
+
             return JsonSerializer.Deserialize<T>(result);
         }
 
@@ -104,13 +105,13 @@ namespace FaxCoreRestClient.Client
 
             var url = $"{_baseUrl}/{urlPath}";
 
-            var request = new HttpRequestMessage()
+            var request = new HttpRequestMessage
             {
                 Method = HttpMethod.Put,
                 RequestUri = new Uri(url),
                 Content = new StringContent(JsonSerializer.Serialize(data), Encoding.UTF8, "application/json")
             };
-            
+
             var response = await _httpClient.SendAsync(request);
             var result = await response.Content.ReadAsStringAsync();
 
@@ -121,10 +122,7 @@ namespace FaxCoreRestClient.Client
 
         private async Task ValidateToken()
         {
-            if (_token == null || _token.Expires < DateTime.Now)
-            {
-                _token = await GetToken();
-            }
+            if (_token == null || _token.Expires < DateTime.Now) _token = await GetToken();
 
             _headers["Authorization"] = $"Bearer {_token.Token}";
         }
@@ -147,11 +145,11 @@ namespace FaxCoreRestClient.Client
                         { "client_secret", _clientSecret }
                     })
             };
-            
+
             var response = await _httpClient.SendAsync(request);
             var tokenResult =
                 await JsonSerializer.DeserializeAsync<TokenResponse>(await response.Content.ReadAsStreamAsync());
-            
+
             return tokenResult;
         }
 
