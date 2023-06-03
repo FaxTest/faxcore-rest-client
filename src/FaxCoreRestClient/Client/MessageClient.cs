@@ -154,5 +154,79 @@ namespace FaxCoreRestClient.Client
         {
             return await _client.Post<Response<IList<FolderResponse>>, object>("/api/message/folders", new { });
         }
+
+        /// <summary>
+        ///     Forward the specified message to a list of other users.
+        ///     (/api/message/forward)
+        /// </summary>
+        /// <param name="messageId">The unique id of the message to forward</param>
+        /// <param name="userList">A list of usernames to forward the message to</param>
+        /// <returns>
+        ///     A response with a string indicating the status of the forwarding. <see cref="Response{T}" /> (T =
+        ///     <see cref="string" />)
+        /// </returns>
+        public async Task<Response<string>> ForwardMessageToUsers(string messageId, IList<string> userList)
+        {
+            return await _client.Post<Response<string>, object>("api/message/forward", new
+            {
+                messageID = messageId,
+                usernames = userList
+            });
+        }
+
+        /// <summary>
+        ///     Retrieve user's message list from specified folder.
+        /// </summary>
+        /// <param name="request">The Message List Request Object <see cref="MessageListRequest" /></param>
+        /// <returns>A paged response of Messages <see cref="PagedResponse{T}" /> (T=<see cref="MessageListResponse" />)</returns>
+        public async Task<PagedResponse<MessageListResponse>> GetMessageList(MessageListRequest request)
+        {
+            return await _client.Post<PagedResponse<MessageListResponse>, MessageListRequest>("/api/message/list",
+                request);
+        }
+
+        /// <summary>
+        ///     ove existing message from one folder to another, include personal folder. The move only happen within user's
+        ///     account, does not support cross user account.
+        ///     (api/message/move)
+        /// </summary>
+        /// <param name="messageId">The unique id of the message to move</param>
+        /// <param name="folderName">The folder name to move the message to</param>
+        /// <returns>A response with a status string <see cref="Response{T}" /> (T=<see cref="string" />)</returns>
+        public async Task<Response<string>> MoveMessageToFolder(string messageId, string folderName)
+        {
+            return await _client.Post<Response<string>, object>("/api/message/move", new
+            {
+                messageID = messageId,
+                folder = folderName
+            });
+        }
+
+        /// <summary>
+        ///     Mark specific message read status to read or unread. This is a simple message flag set.
+        ///     (api/message/read)
+        /// </summary>
+        /// <param name="messageId">The unique id of the message to move</param>
+        /// <param name="read">Set the read status to Read (True) or Unread (False)</param>
+        /// <returns>A response with a status string <see cref="Response{T}" /> (T=<see cref="string" />)</returns>
+        public async Task<Response<string>> ToggleMessageRead(string messageId, bool read)
+        {
+            return await _client.Post<Response<string>, object>("/api/message/read", new
+            {
+                messageID = messageId,
+                isRead = read
+            });
+        }
+
+        /// <summary>
+        ///     Retrieve message read status. This is a simple message read flag retrieval.
+        /// </summary>
+        /// <param name="messageId">The unique id of the message to move</param>
+        /// <returns>A response with the read status <see cref="Response{T}" /> (T=<see cref="ReadStatusResponse" />)</returns>
+        public async Task<Response<ReadStatusResponse>> GetMessageReadStatus(string messageId)
+        {
+            return await _client.Post<Response<ReadStatusResponse>, object>("/api/message/read_state",
+                new { messageID = messageId });
+        }
     }
 }
