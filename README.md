@@ -3,6 +3,18 @@
 
 This library is a client implementation for the FaxCore EV6 Rest API.
 
+Supported versions of .NET/Dotnet
+
+- .NET 4.7
+- .NET 4.7.1
+- .NET 4.7.2
+- .NET 4.8
+- NET 7.0
+- NET 6.0
+
+Utilizes `System.Text.Json` and `System.Net.Http`
+
+
 Usage:
 
 Setup DependencyInjection
