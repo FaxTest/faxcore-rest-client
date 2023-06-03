@@ -10,7 +10,7 @@ using FaxCoreRestClient.Tools;
 
 namespace FaxCoreRestClient.Client
 {
-    public class FaxCoreBaseClient
+    internal class FaxCoreBaseClient
     {
         private readonly string _baseUrl;
         private readonly string _clientId;
@@ -19,7 +19,7 @@ namespace FaxCoreRestClient.Client
         private readonly HttpClient _httpClient;
         private TokenResponse _token;
 
-        protected FaxCoreBaseClient(string baseUrl, string clientId, string clientSecret)
+        internal FaxCoreBaseClient(string baseUrl, string clientId, string clientSecret)
         {
             _clientId = clientId;
             _clientSecret = clientSecret;
@@ -35,7 +35,7 @@ namespace FaxCoreRestClient.Client
             _httpClient.Timeout = TimeSpan.FromMinutes(1);
         }
 
-        protected async Task<T> Get<T>(string urlPath)
+        internal async Task<T> Get<T>(string urlPath)
             where T : class
         {
             await PrepareClient();
@@ -50,7 +50,7 @@ namespace FaxCoreRestClient.Client
             return JsonSerializer.Deserialize<T>(result);
         }
 
-        protected async Task<T> Post<T, U>(string urlPath, U data)
+        internal async Task<T> Post<T, U>(string urlPath, U data)
             where U : class
             where T : class
         {
@@ -71,7 +71,7 @@ namespace FaxCoreRestClient.Client
             return JsonSerializer.Deserialize<T>(result);
         }
 
-        protected async Task<T> Delete<T, U>(string urlPath, U data)
+        internal async Task<T> Delete<T, U>(string urlPath, U data)
             where U : class
             where T : class
         {
@@ -95,7 +95,7 @@ namespace FaxCoreRestClient.Client
             return JsonSerializer.Deserialize<T>(result);
         }
 
-        protected async Task<T> Put<T, U>(string urlPath, U data)
+        internal async Task<T> Put<T, U>(string urlPath, U data)
             where U : class
             where T : class
         {
