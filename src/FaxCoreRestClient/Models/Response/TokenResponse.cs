@@ -2,7 +2,7 @@ using System;
 using System.Text.Json.Serialization;
 using FaxCoreRestClient.Tools;
 
-namespace FaxCoreRestClient.Models
+namespace FaxCoreRestClient.Models.Response
 {
     /// <summary>
     ///     FaxCore API Token Response
