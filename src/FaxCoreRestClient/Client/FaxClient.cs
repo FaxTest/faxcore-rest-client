@@ -1,3 +1,6 @@
+using System.Threading.Tasks;
+using FaxCoreRestClient.Models.Response;
+
 namespace FaxCoreRestClient.Client
 {
     /// <summary>
@@ -18,6 +21,19 @@ namespace FaxCoreRestClient.Client
 
         {
             _client = new FaxCoreBaseClient(faxServerUrl, clientId, clientSecret);
+        }
+
+        /// <summary>
+        ///     Upload files to retrieve encrypted file name to pass when creating a new message.
+        /// </summary>
+        /// <param name="filePath">The file path to the file being uploaded</param>
+        /// <returns>
+        ///     The response object with the newly created file details <see cref="Response{T}" /> (T =
+        ///     <see cref="UploadResponse" />)
+        /// </returns>
+        public async Task<Response<UploadResponse>> UploadFile(string filePath)
+        {
+            return await _client.PostFile<Response<UploadResponse>>("/api/upload", filePath);
         }
     }
 }

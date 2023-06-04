@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Net.Http;
 using System.Text;
 using System.Text.Json;
@@ -115,6 +116,35 @@ namespace FaxCoreRestClient.Client
             var response = await _httpClient.SendAsync(request);
             var result = await response.Content.ReadAsStringAsync();
 
+            if (!response.IsSuccessStatusCode) throw new FaxCoreException(result, response.StatusCode, result);
+
+            return JsonSerializer.Deserialize<T>(result);
+        }
+
+        internal async Task<T> PostFile<T>(string urlPath, string filePath)
+            where T : class
+        {
+            if (!File.Exists(filePath))
+                throw new FaxCoreException($"File {filePath} does not exist", new FileNotFoundException());
+
+            var file = File.Open(filePath, FileMode.Open);
+
+            var fileStream = new StreamContent(file);
+
+            _headers.Remove("Content-Type");
+            _headers.Add("Content-Type", "multipart/form-data");
+
+            await PrepareClient();
+            _httpClient.AddHeaders(_headers);
+
+            var content = new MultipartFormDataContent();
+
+            content.Add(content, "", file.Name);
+
+            var url = $"{_baseUrl}/{urlPath}";
+
+            var response = await _httpClient.PostAsync(url, content);
+            var result = await response.Content.ReadAsStringAsync();
             if (!response.IsSuccessStatusCode) throw new FaxCoreException(result, response.StatusCode, result);
 
             return JsonSerializer.Deserialize<T>(result);

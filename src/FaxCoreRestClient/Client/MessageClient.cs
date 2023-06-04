@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using FaxCoreRestClient.Models;
 using FaxCoreRestClient.Models.Request;
 using FaxCoreRestClient.Models.Response;
+using Recipient = FaxCoreRestClient.Models.Recipient;
 
 namespace FaxCoreRestClient.Client
 {
@@ -252,6 +253,44 @@ namespace FaxCoreRestClient.Client
         {
             return await _client.Post<PagedResponse<MessageSearchResults>, MessageSearchRequest>("/api/message/search",
                 searchRequest);
+        }
+
+        /// <summary>
+        ///     NOTICE: YOU MUST CALL FaxClient.UploadFile() FIRST TO GET THE FILE ID
+        ///     Create new message (fax and email). The usual user permissions applies.
+        /// </summary>
+        /// <param name="messageRequest">
+        ///     The Message Request Object <see cref="SendMessageRequest{T}" /> (T=
+        ///     <see cref="Recipient" />)
+        /// </param>
+        /// <returns>
+        ///     A response with a the details of the created message <see cref="Response{T}" /> (T=
+        ///     <see cref="SendMessageResponse" />)
+        /// </returns>
+        public async Task<Response<SendMessageResponse>> SendMessage(SendMessageRequest<Recipient> messageRequest)
+        {
+            return await _client.Post<Response<SendMessageResponse>, SendMessageRequest<Recipient>>("/api/message/send",
+                messageRequest);
+        }
+
+        /// <summary>
+        ///     NOTICE: YOU MUST CALL FaxClient.UploadFile() FIRST TO GET THE FILE ID
+        ///     Create new message (fax and email) to an internal user. The usual user permissions applies.
+        /// </summary>
+        /// <param name="messageRequest">
+        ///     The Message Request Object <see cref="SendMessageRequest{T}" /> (T =
+        ///     <see cref="InternalRecipient" />)
+        /// </param>
+        /// <returns>
+        ///     A response with a the details of the created message <see cref="Response{T}" /> (T=
+        ///     <see cref="SendMessageResponse" />)
+        /// </returns>
+        public async Task<Response<SendMessageResponse>> SendMessageInternal(
+            SendMessageRequest<InternalRecipient> messageRequest)
+        {
+            return await _client.Post<Response<SendMessageResponse>, SendMessageRequest<InternalRecipient>>(
+                "/api/message/send",
+                messageRequest);
         }
     }
 }
