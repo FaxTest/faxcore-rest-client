@@ -177,12 +177,13 @@ namespace FaxCoreRestClient.Client
         /// <summary>
         ///     Retrieve user's message list from specified folder.
         /// </summary>
-        /// <param name="request">The Message List Request Object <see cref="MessageListRequest" /></param>
+        /// <param name="messagesRequest">The Message List Request Object <see cref="FolderListMessagesRequest" /></param>
         /// <returns>A paged response of Messages <see cref="PagedResponse{T}" /> (T=<see cref="MessageListResponse" />)</returns>
-        public async Task<PagedResponse<MessageListResponse>> GetMessageList(MessageListRequest request)
+        public async Task<PagedResponse<MessageListResponse>> GetMessageList(FolderListMessagesRequest messagesRequest)
         {
-            return await _client.Post<PagedResponse<MessageListResponse>, MessageListRequest>("/api/message/list",
-                request);
+            return await _client.Post<PagedResponse<MessageListResponse>, FolderListMessagesRequest>(
+                "/api/message/list",
+                messagesRequest);
         }
 
         /// <summary>
@@ -227,6 +228,30 @@ namespace FaxCoreRestClient.Client
         {
             return await _client.Post<Response<ReadStatusResponse>, object>("/api/message/read_state",
                 new { messageID = messageId });
+        }
+
+        /// <summary>
+        ///     Set existing message with failed status to resend (ie, reattempt.). Only valid for own messages.
+        ///     (api/message/retry)
+        /// </summary>
+        /// <param name="messageId">The unique ID of the message to retry</param>
+        /// <returns>A response with a confirmation string <see cref="Response{T}" /> (T=<see cref="string" />)</returns>
+        public async Task<Response<string>> RetryMessage(string messageId)
+        {
+            return await _client.Post<Response<string>, object>("/api/message/retry", new { messageID = messageId });
+        }
+
+        /// <summary>
+        ///     Search Messages within the domain.
+        /// </summary>
+        /// <param name="searchRequest">The Message Search parameters object <see cref="MessageSearchRequest" /> </param>
+        /// <returns>
+        ///     A paged response with a list of results <see cref="PagedResponse{T}" /> (T=<see cref="MessageSearchResults" />)
+        /// </returns>
+        public async Task<PagedResponse<MessageSearchResults>> SearchMessages(MessageSearchRequest searchRequest)
+        {
+            return await _client.Post<PagedResponse<MessageSearchResults>, MessageSearchRequest>("/api/message/search",
+                searchRequest);
         }
     }
 }

@@ -22,7 +22,7 @@ namespace FaxCoreRestClient.Tools
 
     public class FaxCoreRequestDateTimeConverter : JsonConverter<DateTime>
     {
-        private const string DateTimeFormat = "yyyy-MM-dd HH:mm:ss";
+        private const string DateTimeFormat = "yyyyMMddd HH:mm:ss";
 
         public override DateTime Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {

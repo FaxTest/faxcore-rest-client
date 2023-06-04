@@ -122,9 +122,9 @@ namespace FaxCoreRestClient.Client
         /// <summary>
         ///     Retrieve user's message list from specified folder.
         /// </summary>
-        /// <param name="request">The Message List Request Object <see cref="MessageListRequest" /></param>
+        /// <param name="messagesRequest">The Message List Request Object <see cref="FolderListMessagesRequest" /></param>
         /// <returns>A paged response of Messages <see cref="PagedResponse{T}" /> (T=<see cref="MessageListResponse" />)</returns>
-        Task<PagedResponse<MessageListResponse>> GetMessageList(MessageListRequest request);
+        Task<PagedResponse<MessageListResponse>> GetMessageList(FolderListMessagesRequest messagesRequest);
 
         /// <summary>
         ///     ove existing message from one folder to another, include personal folder. The move only happen within user's

@@ -1,14 +1,15 @@
 using System;
 using System.Runtime.Serialization;
 using System.Text.Json.Serialization;
+using FaxCoreRestClient.Models.Enumerators;
 using FaxCoreRestClient.Tools;
 
 namespace FaxCoreRestClient.Models.Request
 {
     /// <summary>
-    ///     Request message to get a list of messages
+    ///     Request message to get a list of messages for the specified folder
     /// </summary>
-    public class MessageListRequest
+    public class FolderListMessagesRequest
     {
         /// <summary>
         ///     The folder name to get messages from
@@ -42,7 +43,7 @@ namespace FaxCoreRestClient.Models.Request
         /// </summary>
         [DataMember(Name = "read")]
         [JsonPropertyName("read")]
-        public string Read { get; set; }
+        public FilterOption Read { get; set; }
 
         /// <summary>
         ///     Include downloaded messages
@@ -50,7 +51,7 @@ namespace FaxCoreRestClient.Models.Request
         /// </summary>
         [DataMember(Name = "downloaded")]
         [JsonPropertyName("downloaded")]
-        public string Downloaded { get; set; }
+        public FilterOption Downloaded { get; set; }
 
         /// <summary>
         ///     Sort the results descending
