@@ -9,7 +9,7 @@ namespace FaxCoreRestClient.Models.Request
     public class Pagination
     {
         /// <summary>
-        ///     Search string to filter results
+        ///     Search string to filter results (optional)
         /// </summary>
         [JsonPropertyName("search")]
         public string Search { get; set; }
