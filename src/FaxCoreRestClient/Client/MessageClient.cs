@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using FaxCoreRestClient.Models;
 using FaxCoreRestClient.Models.Request;
 using FaxCoreRestClient.Models.Response;
-using Recipient = FaxCoreRestClient.Models.Recipient;
 
 namespace FaxCoreRestClient.Client
 {
@@ -261,15 +260,17 @@ namespace FaxCoreRestClient.Client
         /// </summary>
         /// <param name="messageRequest">
         ///     The Message Request Object <see cref="SendMessageRequest{T}" /> (T=
-        ///     <see cref="Recipient" />)
+        ///     <see cref="MessageRecipient" />)
         /// </param>
         /// <returns>
         ///     A response with a the details of the created message <see cref="Response{T}" /> (T=
         ///     <see cref="SendMessageResponse" />)
         /// </returns>
-        public async Task<Response<SendMessageResponse>> SendMessage(SendMessageRequest<Recipient> messageRequest)
+        public async Task<Response<SendMessageResponse>> SendMessage(
+            SendMessageRequest<MessageRecipient> messageRequest)
         {
-            return await _client.Post<Response<SendMessageResponse>, SendMessageRequest<Recipient>>("/api/message/send",
+            return await _client.Post<Response<SendMessageResponse>, SendMessageRequest<MessageRecipient>>(
+                "/api/message/send",
                 messageRequest);
         }
 
@@ -291,6 +292,70 @@ namespace FaxCoreRestClient.Client
             return await _client.Post<Response<SendMessageResponse>, SendMessageRequest<InternalRecipient>>(
                 "/api/message/send",
                 messageRequest);
+        }
+
+        /// <summary>
+        ///     Get the status of a message
+        ///     (api/message/status)
+        /// </summary>
+        /// <param name="messageId"></param>
+        /// <returns>A response object with a Status response <see cref="Response{T}" /> (T=<see cref="MessageStatusResponse" />)</returns>
+        public async Task<Response<MessageStatusResponse>> GetMessageStatus(string messageId)
+        {
+            return await _client.Post<Response<MessageStatusResponse>, object>("/api/message/status",
+                new { messageID = messageId });
+        }
+
+        /// <summary>
+        ///     Update the subject of a message
+        ///     (api/message/subject)
+        /// </summary>
+        /// <param name="messageId"></param>
+        /// <param name="subjectString"></param>
+        /// <returns>Returns a response object with a boolean status <see cref="BooleanResponse" /></returns>
+        public async Task<Response<BooleanResponse>> UpdateMessageSubject(string messageId, string subjectString)
+        {
+            return await _client.Put<Response<BooleanResponse>, object>("/api/message/subject", new
+            {
+                messageID = messageId,
+                subject = subjectString
+            });
+        }
+
+        /// <summary>
+        ///     Update the tracking information on a message.
+        ///     (api/message/tracking)
+        /// </summary>
+        /// <param name="messageId"></param>
+        /// <param name="trackingValue"></param>
+        /// <param name="trackingId"></param>
+        /// <returns>Returns a response object with a string result <see cref="Response{T}" /> (T=<see cref="string" />)</returns>
+        public async Task<Response<string>> UpdateMessageTracking(string messageId, string trackingValue,
+            int trackingId = 0)
+        {
+            return await _client.Put<Response<string>, object>("/api/message/tracking", new
+            {
+                messageID = messageId,
+                trackingID = trackingId,
+                tracking = trackingValue
+            });
+        }
+
+        /// <summary>
+        ///     Returns the tracking information for a message
+        ///     (api/message/tracking)
+        /// </summary>
+        /// <param name="messageId"></param>
+        /// <returns>
+        ///     A response object with the tracking details for the message <see cref="Response{T}" />(T =
+        ///     <see cref="TrackingResponse" />)
+        /// </returns>
+        public async Task<Response<TrackingResponse>> GetMessageTracking(string messageId)
+        {
+            return await _client.Post<Response<TrackingResponse>, object>("/api/message/tracking", new
+            {
+                messageID = messageId
+            });
         }
     }
 }
