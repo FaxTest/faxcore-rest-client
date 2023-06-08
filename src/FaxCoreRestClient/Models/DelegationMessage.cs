@@ -12,7 +12,7 @@ namespace FaxCoreRestClient.Models
 
         [DataMember(Name = "recipients")]
         [JsonPropertyName("recipients")]
-        public List<Recipient> Recipients { get; set; }
+        public List<DelegationRecipient> Recipients { get; set; }
 
         [DataMember(Name = "senderName")]
         [JsonPropertyName("senderName")]

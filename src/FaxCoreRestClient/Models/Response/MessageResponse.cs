@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using System.Runtime.Serialization;
 using System.Text.Json.Serialization;
 
@@ -19,15 +18,5 @@ namespace FaxCoreRestClient.Models.Response
         [DataMember(Name = "message")]
         [JsonPropertyName("message")]
         public string Message { get; set; }
-    }
-
-    public class MessageResponseList
-    {
-        /// <summary>
-        ///     A List of message responses
-        /// </summary>
-        [DataMember(Name = "messages")]
-        [JsonPropertyName("message")]
-        public IList<MessageResponse> Messages { get; set; }
     }
 }

@@ -86,11 +86,11 @@ namespace FaxCoreRestClient.Models.Request
         public string CompanyName { get; set; }
 
         /// <summary>
-        ///     Preferred address type of the user to create <see cref="PreferredAddressType" />
+        ///     Preferred address type of the user to create <see cref="AddressType" />
         /// </summary>
         [DataMember(Name = "preferredAddressType", EmitDefaultValue = false)]
         [JsonPropertyName("preferredAddressType")]
-        public PreferredAddressType PreferredAddressType { get; set; }
+        public AddressType AddressType { get; set; }
 
         /// <summary>
         ///     The new user's email address

@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace FaxCoreRestClient.Models
 {
-    public class Recipient
+    public class DelegationRecipient
     {
         [DataMember(Name = "name")]
         [JsonPropertyName("name")]
