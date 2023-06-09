@@ -6,7 +6,7 @@ using FaxCoreRestClient.Models.Response;
 
 namespace FaxCoreRestClient.Client
 {
-    public partial class FaxClient : IFaxClient
+    public partial class FaxClient
     {
         /// <summary>
         ///     Sends a list of users to be activated

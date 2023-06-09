@@ -25,7 +25,7 @@ namespace FaxCoreRestClient.Models
             ErrorCode = errorCode;
         }
 
-        public FaxCoreException(string message, Exception innerException): base(message, innerException)
+        public FaxCoreException(string message, Exception innerException) : base(message, innerException)
         {
         }
 

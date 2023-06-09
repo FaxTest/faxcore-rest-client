@@ -6,10 +6,11 @@ using FaxCoreRestClient.Models.Response;
 
 namespace FaxCoreRestClient.Client
 {
-    public partial class FaxClient : IFaxClient
+    public partial class FaxClient
     {
         /// <summary>
         ///     Approves or rejects a message (/api/message/approval)
+        ///     (/api/message/approval)
         /// </summary>
         /// <param name="messageId">The message Id</param>
         /// <param name="approve">Approve (True) or Reject (False) </param>
