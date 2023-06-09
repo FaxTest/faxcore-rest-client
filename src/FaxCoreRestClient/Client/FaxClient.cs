@@ -6,7 +6,7 @@ namespace FaxCoreRestClient.Client
     /// <summary>
     ///     Rest Client for FaxCore
     /// </summary>
-    public partial class FaxClient : IFaxClient
+    public partial class FaxClient
     {
         private readonly FaxCoreBaseClient _client;
 
@@ -34,6 +34,15 @@ namespace FaxCoreRestClient.Client
         public async Task<Response<UploadResponse>> UploadFile(string filePath)
         {
             return await _client.PostFile<Response<UploadResponse>>("/api/upload", filePath);
+        }
+
+        /// <summary>
+        ///     Lists the current users cover page items
+        /// </summary>
+        /// <returns><see cref="Response{T}" />(T = <see cref="CoverPageItemResponse" /></returns>
+        public async Task<Response<CoverPageItemResponse>> GetCoverPageItems()
+        {
+            return await _client.Get<Response<CoverPageItemResponse>>("/api/coverpages");
         }
     }
 }
