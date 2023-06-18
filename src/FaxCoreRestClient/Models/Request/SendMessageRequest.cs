@@ -2,9 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 using System.Text.Json.Serialization;
-using FaxCoreRestClient.Tools;
+using FaxCore.Ev6.RestClient.Tools;
 
-namespace FaxCoreRestClient.Models.Request
+namespace FaxCore.Ev6.RestClient.Models.Request
 {
     /// <summary>
     ///     Represents a message object.

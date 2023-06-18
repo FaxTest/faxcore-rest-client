@@ -1,7 +1,7 @@
 using System.Collections.Generic;
-using FaxCoreRestClient.Models.Enumerators;
+using FaxCore.Ev6.RestClient.Models.Enumerators;
 
-namespace FaxCoreRestClient.Models.Request
+namespace FaxCore.Ev6.RestClient.Models.Request
 {
     /// <summary>
     ///     Request object to pull a list of contacts from an address book

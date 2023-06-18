@@ -1,7 +1,7 @@
 using System.Runtime.Serialization;
 using System.Text.Json.Serialization;
 
-namespace FaxCoreRestClient.Models.Request
+namespace FaxCore.Ev6.RestClient.Models.Request
 {
     /// <summary>
     ///     Represents a recipient object.

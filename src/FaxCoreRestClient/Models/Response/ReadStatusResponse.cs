@@ -1,10 +1,10 @@
 using System.Runtime.Serialization;
 using System.Text.Json.Serialization;
 
-namespace FaxCoreRestClient.Models.Response
+namespace FaxCore.Ev6.RestClient.Models.Response
 {
     /// <summary>
-    ///     Response object for the ReadStatus API
+    ///     FaxCoreResponse object for the ReadStatus API
     /// </summary>
     public class ReadStatusResponse
     {

@@ -1,10 +1,10 @@
 using System.Runtime.Serialization;
 using System.Text.Json.Serialization;
 
-namespace FaxCoreRestClient.Models.Response
+namespace FaxCore.Ev6.RestClient.Models.Response
 {
     /// <summary>
-    ///     Response object from creating an address book.
+    ///     FaxCoreResponse object from creating an address book.
     /// </summary>
     public class AddressBookCreateResponse
     {

@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Runtime.Serialization;
 using System.Text.Json.Serialization;
 
-namespace FaxCoreRestClient.Models.Response
+namespace FaxCore.Ev6.RestClient.Models.Response
 {
     public class MessageResponseList
     {

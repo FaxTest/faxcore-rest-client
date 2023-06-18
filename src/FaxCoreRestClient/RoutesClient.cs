@@ -1,20 +1,20 @@
 using System.Threading.Tasks;
-using FaxCoreRestClient.Models.Request;
-using FaxCoreRestClient.Models.Response;
+using FaxCore.Ev6.RestClient.Models.Request;
+using FaxCore.Ev6.RestClient.Models.Response;
 
-namespace FaxCoreRestClient.Client
+namespace FaxCore.Ev6.RestClient
 {
-    public partial class FaxClient
+    public partial class FaxClient : IFaxClient
     {
         /// <summary>
         ///     Delete an Inbound Routing Rule
         ///     (DELETE /api/routes/delete)
         /// </summary>
         /// <param name="routeId">The unique ID of the route to be deleted</param>
-        /// <returns><see cref="Response{T}" /> (T=<see cref="string" />)</returns>
-        public async Task<Response<string>> DeleteRoutingRule(string routeId)
+        /// <returns><see cref="FaxCoreFaxCoreResponse{T}" /> (T=<see cref="string" />)</returns>
+        public async Task<FaxCoreResponse<string>> DeleteRoutingRule(string routeId)
         {
-            return await _client.Post<Response<string>, object>("/api/routes/delete", new { routeID = routeId });
+            return await _client.Post<FaxCoreResponse<string>, object>("/api/routes/delete", new { routeID = routeId });
         }
 
         /// <summary>
@@ -22,10 +22,10 @@ namespace FaxCoreRestClient.Client
         ///     (POST /api/routes/disable)
         /// </summary>
         /// <param name="routeId">The unique ID of the route to be disabled</param>
-        /// <returns><see cref="Response{T}" /> (T=<see cref="string" />)</returns>
-        public async Task<Response<string>> DisableRoutingRule(string routeId)
+        /// <returns><see cref="FaxCoreFaxCoreResponse{T}" /> (T=<see cref="string" />)</returns>
+        public async Task<FaxCoreResponse<string>> DisableRoutingRule(string routeId)
         {
-            return await _client.Post<Response<string>, object>("/api/routes/disable", new { routeID = routeId });
+            return await _client.Post<FaxCoreResponse<string>, object>("/api/routes/disable", new { routeID = routeId });
         }
 
         /// <summary>
@@ -33,10 +33,10 @@ namespace FaxCoreRestClient.Client
         ///     (POST /api/routes/enable)
         /// </summary>
         /// <param name="routeId">The unique ID of the route to be enabled</param>
-        /// <returns><see cref="Response{T}" /> (T=<see cref="string" />)</returns>
-        public async Task<Response<string>> EnableRoutingRule(string routeId)
+        /// <returns><see cref="FaxCoreFaxCoreResponse{T}" /> (T=<see cref="string" />)</returns>
+        public async Task<FaxCoreResponse<string>> EnableRoutingRule(string routeId)
         {
-            return await _client.Post<Response<string>, object>("/api/routes/enable", new { routeID = routeId });
+            return await _client.Post<FaxCoreResponse<string>, object>("/api/routes/enable", new { routeID = routeId });
         }
 
         /// <summary>
@@ -46,10 +46,10 @@ namespace FaxCoreRestClient.Client
         /// <param name="createRequest">
         ///     <see cref="RouteCreateRequest" />
         /// </param>
-        /// <returns><see cref="Response{T}" /> (T = <see cref="string" />)</returns>
-        public async Task<Response<string>> CreateRoutingRule(RouteCreateRequest createRequest)
+        /// <returns><see cref="FaxCoreFaxCoreResponse{T}" /> (T = <see cref="string" />)</returns>
+        public async Task<FaxCoreResponse<string>> CreateRoutingRule(RouteCreateRequest createRequest)
         {
-            return await _client.Post<Response<string>, RouteCreateRequest>("/api/routes/inbound", createRequest);
+            return await _client.Post<FaxCoreResponse<string>, RouteCreateRequest>("/api/routes/inbound", createRequest);
         }
 
         /// <summary>

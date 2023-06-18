@@ -1,6 +1,6 @@
 using System.Text.Json.Serialization;
 
-namespace FaxCoreRestClient.Models.Request
+namespace FaxCore.Ev6.RestClient.Models.Request
 {
     /// <summary>
     ///     When sending a request that accepts pagination these controls enable you to specify the page, max results, and

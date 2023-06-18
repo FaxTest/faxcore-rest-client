@@ -1,10 +1,10 @@
 using System.Runtime.Serialization;
 using System.Text.Json.Serialization;
 
-namespace FaxCoreRestClient.Models.Response
+namespace FaxCore.Ev6.RestClient.Models.Response
 {
     /// <summary>
-    ///     Response object for the Cover Page Items
+    ///     FaxCoreResponse object for the Cover Page Items
     /// </summary>
     public class CoverPageItemResponse
     {

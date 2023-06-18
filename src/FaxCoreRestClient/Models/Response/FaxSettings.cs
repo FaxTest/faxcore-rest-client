@@ -1,7 +1,7 @@
 using System.Runtime.Serialization;
 using System.Text.Json.Serialization;
 
-namespace FaxCoreRestClient.Models.Response
+namespace FaxCore.Ev6.RestClient.Models.Response
 {
     /// <summary>
     ///     Fax Settings for a user. Note that these are read only as of FaxCore 2.0.  This is because

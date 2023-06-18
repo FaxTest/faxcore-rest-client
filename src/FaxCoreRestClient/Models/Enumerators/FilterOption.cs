@@ -1,6 +1,6 @@
 using System.Text.Json.Serialization;
 
-namespace FaxCoreRestClient.Models.Enumerators
+namespace FaxCore.Ev6.RestClient.Models.Enumerators
 {
     [JsonConverter(typeof(JsonStringEnumConverter))]
     public enum FilterOption

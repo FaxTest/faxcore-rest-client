@@ -1,8 +1,8 @@
 using System.Runtime.Serialization;
 using System.Text.Json.Serialization;
-using FaxCoreRestClient.Models.Enumerators;
+using FaxCore.Ev6.RestClient.Models.Enumerators;
 
-namespace FaxCoreRestClient.Models.Request
+namespace FaxCore.Ev6.RestClient.Models.Request
 {
     /// <summary>
     ///     A request object for creating a new inbound routing rule

@@ -1,12 +1,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using FaxCoreRestClient.Models.Request;
-using FaxCoreRestClient.Models.Response;
+using FaxCore.Ev6.RestClient.Models.Request;
+using FaxCore.Ev6.RestClient.Models.Response;
 
-namespace FaxCoreRestClient.Client
+namespace FaxCore.Ev6.RestClient
 {
-    public partial class FaxClient
+    public partial class FaxClient : IFaxClient
     {
         /// <summary>
         ///     Sends a list of users to be activated
@@ -40,11 +40,11 @@ namespace FaxCoreRestClient.Client
         /// </summary>
         /// <param name="user">The CreateUserRequest for the user being created <see cref="CreateUserRequest" /></param>
         /// <returns>
-        ///     The response with the newly created user's UserId <see cref="Response{T}" /> <seealso cref="UserListItem" />
+        ///     The response with the newly created user's UserId <see cref="FaxCoreFaxCoreResponse{T}" /> <seealso cref="UserListItem" />
         /// </returns>
-        public async Task<Response<UserListItem>> CreateUser(CreateUserRequest user)
+        public async Task<FaxCoreResponse<UserListItem>> CreateUser(CreateUserRequest user)
         {
-            return await _client.Post<Response<UserListItem>, CreateUserRequest>("/api/users/create", user);
+            return await _client.Post<FaxCoreResponse<UserListItem>, CreateUserRequest>("/api/users/create", user);
         }
 
         /// <summary>
@@ -52,13 +52,13 @@ namespace FaxCoreRestClient.Client
         ///     ("/api/users/deactivate")
         ///     <param name="users">A list of users to be deactivated</param>
         ///     <returns>
-        ///         <see cref="Response{T}" /> <seealso cref="string" />
+        ///         <see cref="FaxCoreFaxCoreResponse{T}" /> <seealso cref="string" />
         ///     </returns>
         /// </summary>
-        public async Task<Response<string>> DeactivateUser(IEnumerable<string> users)
+        public async Task<FaxCoreResponse<string>> DeactivateUser(IEnumerable<string> users)
         {
             var requestData = new { userIDList = users.ToArray() };
-            return await _client.Post<Response<string>, object>("/api/users/deactivate", requestData);
+            return await _client.Post<FaxCoreResponse<string>, object>("/api/users/deactivate", requestData);
         }
 
 
@@ -70,9 +70,9 @@ namespace FaxCoreRestClient.Client
         ///     The domain to get the list of users from
         /// </param>
         /// <returns>A list of User Objects (<see cref="UserListItem" />)</returns>
-        public async Task<Response<IEnumerable<UserListItem>>> UserList(string domainName)
+        public async Task<FaxCoreResponse<IEnumerable<UserListItem>>> UserList(string domainName)
         {
-            return await _client.Post<Response<IEnumerable<UserListItem>>, object>("/api/users/list",
+            return await _client.Post<FaxCoreResponse<IEnumerable<UserListItem>>, object>("/api/users/list",
                 new { domain = domainName });
         }
 
@@ -84,11 +84,11 @@ namespace FaxCoreRestClient.Client
         ///     The user id of the user to be deleted
         /// </param>
         /// <returns>
-        ///     <see cref="Response{T}" /> <seealso cref="string" />
+        ///     <see cref="FaxCoreFaxCoreResponse{T}" /> <seealso cref="string" />
         /// </returns>
-        public async Task<Response<string>> DeleteUser(string userId)
+        public async Task<FaxCoreResponse<string>> DeleteUser(string userId)
         {
-            return await _client.Delete<Response<string>, object>("/api/users/delete", new { user = userId });
+            return await _client.Delete<FaxCoreResponse<string>, object>("/api/users/delete", new { user = userId });
         }
 
         /// <summary>
@@ -99,11 +99,11 @@ namespace FaxCoreRestClient.Client
         ///     The userId of the user to get the details for
         /// </param>
         /// <returns>
-        ///     <see cref="Response{T}" /> <seealso cref="UserData" />
+        ///     <see cref="FaxCoreFaxCoreResponse{T}" /> <seealso cref="UserData" />
         /// </returns>
-        public async Task<Response<UserData>> GetUserDetails(string userId)
+        public async Task<FaxCoreResponse<UserData>> GetUserDetails(string userId)
         {
-            return await _client.Post<Response<UserData>, object>("/api/users/details", new { user = userId });
+            return await _client.Post<FaxCoreResponse<UserData>, object>("/api/users/details", new { user = userId });
         }
 
         /// <summary>
@@ -111,9 +111,9 @@ namespace FaxCoreRestClient.Client
         /// </summary>
         /// <param name="userId"></param>
         /// <returns></returns>
-        public async Task<Response<FaxSettings>> GetUserFaxSettings(string userId)
+        public async Task<FaxCoreResponse<FaxSettings>> GetUserFaxSettings(string userId)
         {
-            return await _client.Post<Response<FaxSettings>, object>("/api/users/faxsettings", new { user = userId });
+            return await _client.Post<FaxCoreResponse<FaxSettings>, object>("/api/users/faxsettings", new { user = userId });
         }
 
         /// <summary>
@@ -122,9 +122,9 @@ namespace FaxCoreRestClient.Client
         /// <param name="userId"></param>
         /// <param name="domainName"></param>
         /// <returns>
-        ///     <see cref="Response{T}" /> <seealso cref="string" />
+        ///     <see cref="FaxCoreFaxCoreResponse{T}" /> <seealso cref="string" />
         /// </returns>
-        public async Task<Response<string>> ChangeUserDomain(string userId, string domainName)
+        public async Task<FaxCoreResponse<string>> ChangeUserDomain(string userId, string domainName)
         {
             var request = new
             {
@@ -132,7 +132,7 @@ namespace FaxCoreRestClient.Client
                 DomainName = domainName
             };
 
-            return await _client.Put<Response<string>, object>("/api/users/domain", request);
+            return await _client.Put<FaxCoreResponse<string>, object>("/api/users/domain", request);
         }
 
         /// <summary>
@@ -140,9 +140,9 @@ namespace FaxCoreRestClient.Client
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        public async Task<Response<string>> UpdateUser(UpdateUserDetails request)
+        public async Task<FaxCoreResponse<string>> UpdateUser(UpdateUserDetails request)
         {
-            return await _client.Put<Response<string>, UpdateUserDetails>("/api/users/faxsettings", request);
+            return await _client.Put<FaxCoreResponse<string>, UpdateUserDetails>("/api/users/faxsettings", request);
         }
 
         /// <summary>

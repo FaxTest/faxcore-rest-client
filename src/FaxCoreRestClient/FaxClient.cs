@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
-using FaxCoreRestClient.Models.Response;
+using FaxCore.Ev6.RestClient.Models.Response;
 
-namespace FaxCoreRestClient.Client
+namespace FaxCore.Ev6.RestClient
 {
     /// <summary>
     ///     Rest Client for FaxCore
@@ -28,21 +28,21 @@ namespace FaxCoreRestClient.Client
         /// </summary>
         /// <param name="filePath">The file path to the file being uploaded</param>
         /// <returns>
-        ///     The response object with the newly created file details <see cref="Response{T}" /> (T =
+        ///     The response object with the newly created file details <see cref="FaxCoreFaxCoreResponse{T}" /> (T =
         ///     <see cref="UploadResponse" />)
         /// </returns>
-        public async Task<Response<UploadResponse>> UploadFile(string filePath)
+        public async Task<FaxCoreResponse<UploadResponse>> UploadFile(string filePath)
         {
-            return await _client.PostFile<Response<UploadResponse>>("/api/upload", filePath);
+            return await _client.PostFile<FaxCoreResponse<UploadResponse>>("/api/upload", filePath);
         }
 
         /// <summary>
         ///     Lists the current users cover page items
         /// </summary>
-        /// <returns><see cref="Response{T}" />(T = <see cref="CoverPageItemResponse" /></returns>
-        public async Task<Response<CoverPageItemResponse>> GetCoverPageItems()
+        /// <returns><see cref="FaxCoreFaxCoreResponse{T}" />(T = <see cref="CoverPageItemResponse" /></returns>
+        public async Task<FaxCoreResponse<CoverPageItemResponse>> GetCoverPageItems()
         {
-            return await _client.Get<Response<CoverPageItemResponse>>("/api/coverpages");
+            return await _client.Get<FaxCoreResponse<CoverPageItemResponse>>("/api/coverpages");
         }
     }
 }

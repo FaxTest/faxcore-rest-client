@@ -1,7 +1,7 @@
 using System.Runtime.Serialization;
 using System.Text.Json.Serialization;
 
-namespace FaxCoreRestClient.Models
+namespace FaxCore.Ev6.RestClient.Models
 {
     public class Document
     {

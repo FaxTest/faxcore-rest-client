@@ -5,11 +5,11 @@ using System.Net.Http;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
-using FaxCoreRestClient.Models;
-using FaxCoreRestClient.Models.Response;
-using FaxCoreRestClient.Tools;
+using FaxCore.Ev6.RestClient.Models;
+using FaxCore.Ev6.RestClient.Models.Response;
+using FaxCore.Ev6.RestClient.Tools;
 
-namespace FaxCoreRestClient.Client
+namespace FaxCore.Ev6.RestClient
 {
     internal class FaxCoreBaseClient
     {

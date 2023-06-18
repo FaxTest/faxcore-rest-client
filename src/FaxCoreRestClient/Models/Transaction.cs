@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Runtime.Serialization;
 using System.Text.Json.Serialization;
 
-namespace FaxCoreRestClient.Models
+namespace FaxCore.Ev6.RestClient.Models
 {
     /// <summary>
     ///     Represents a transaction.

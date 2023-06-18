@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 using System.Text.Json.Serialization;
-using FaxCoreRestClient.Models.Enumerators;
+using FaxCore.Ev6.RestClient.Models.Enumerators;
 
-namespace FaxCoreRestClient.Models.Request
+namespace FaxCore.Ev6.RestClient.Models.Request
 {
     /// <summary>
     ///     Create Contact Request

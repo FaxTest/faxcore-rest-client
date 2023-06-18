@@ -2,7 +2,7 @@ using System;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace FaxCoreRestClient.Tools
+namespace FaxCore.Ev6.RestClient.Tools
 {
     public class BooleanToStringConverter : JsonConverter<bool>
     {

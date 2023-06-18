@@ -1,10 +1,10 @@
 using System.Threading.Tasks;
-using FaxCoreRestClient.Models.Request;
-using FaxCoreRestClient.Models.Response;
+using FaxCore.Ev6.RestClient.Models.Request;
+using FaxCore.Ev6.RestClient.Models.Response;
 
-namespace FaxCoreRestClient.Client
+namespace FaxCore.Ev6.RestClient
 {
-    public partial class FaxClient
+    public partial class FaxClient : IFaxClient
     {
         /// <summary>
         ///     Create an address book for the user that is authenticated.
@@ -12,12 +12,12 @@ namespace FaxCoreRestClient.Client
         /// </summary>
         /// <param name="addressBook">The name of the address book to create</param>
         /// <returns>
-        ///     A response with the an object containing the address book ID. <see cref="Response{T}" /> (T=
+        ///     A response with the an object containing the address book ID. <see cref="FaxCoreResponse{T}" /> (T=
         ///     <see cref="AddressBookCreateResponse" />)
         /// </returns>
-        public async Task<Response<AddressBookCreateResponse>> CreateAddressBook(string addressBook)
+        public async Task<FaxCoreResponse<AddressBookCreateResponse>> CreateAddressBook(string addressBook)
         {
-            return await _client.Post<Response<AddressBookCreateResponse>, object>("/api/addressbook",
+            return await _client.Post<FaxCoreResponse<AddressBookCreateResponse>, object>("/api/addressbook",
                 new { addressBookName = addressBook });
         }
 
@@ -26,10 +26,10 @@ namespace FaxCoreRestClient.Client
         ///     (DELETE /api/addressbook)
         /// </summary>
         /// <param name="addressBookId"></param>
-        /// <returns>A response object with a status string<see cref="Response{T}" /> (T=<see cref="string" />)</returns>
-        public async Task<Response<string>> DeleteAddressBook(int addressBookId)
+        /// <returns>A response object with a status string<see cref="FaxCoreResponse{T}" /> (T=<see cref="string" />)</returns>
+        public async Task<FaxCoreResponse<string>> DeleteAddressBook(int addressBookId)
         {
-            return await _client.Delete<Response<string>, object>("/api/addressbook/", new
+            return await _client.Delete<FaxCoreResponse<string>, object>("/api/addressbook/", new
             {
                 addressBookID = addressBookId
             });
@@ -57,12 +57,12 @@ namespace FaxCoreRestClient.Client
         ///     <see cref="CreateContactRequest" />
         /// </param>
         /// <returns>
-        ///     A response with the newly created contact ID. <see cref="Response{T}" /> (T=
+        ///     A response with the newly created contact ID. <see cref="FaxCoreResponse{T}" /> (T=
         ///     <see cref="ContactCreationResponse" />)
         /// </returns>
-        public async Task<Response<ContactCreationResponse>> CreateContact(CreateContactRequest contact)
+        public async Task<FaxCoreResponse<ContactCreationResponse>> CreateContact(CreateContactRequest contact)
         {
-            return await _client.Post<Response<ContactCreationResponse>, CreateContactRequest>("/api/contact", contact);
+            return await _client.Post<FaxCoreResponse<ContactCreationResponse>, CreateContactRequest>("/api/contact", contact);
         }
 
 
@@ -71,10 +71,10 @@ namespace FaxCoreRestClient.Client
         ///     (DELETE /api/contact)
         /// </summary>
         /// <param name="contactId"></param>
-        /// <returns>A response with a status string <see cref="Response{T}" />(T=<see cref="string" />)</returns>
-        public async Task<Response<string>> DeleteContact(int contactId)
+        /// <returns>A response with a status string <see cref="FaxCoreResponse{T}" />(T=<see cref="string" />)</returns>
+        public async Task<FaxCoreResponse<string>> DeleteContact(int contactId)
         {
-            return await _client.Delete<Response<string>, object>("/api/contact/", new
+            return await _client.Delete<FaxCoreResponse<string>, object>("/api/contact/", new
             {
                 contactID = contactId
             });

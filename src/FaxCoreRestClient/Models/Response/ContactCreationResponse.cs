@@ -1,4 +1,4 @@
-namespace FaxCoreRestClient.Models.Response
+namespace FaxCore.Ev6.RestClient.Models.Response
 {
     /// <summary>
     ///     The response from a contact creation request.

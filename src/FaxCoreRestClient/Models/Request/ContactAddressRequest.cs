@@ -1,6 +1,6 @@
-using FaxCoreRestClient.Models.Enumerators;
+using FaxCore.Ev6.RestClient.Models.Enumerators;
 
-namespace FaxCoreRestClient.Models.Request
+namespace FaxCore.Ev6.RestClient.Models.Request
 {
     public class ContactAddressRequest
     {

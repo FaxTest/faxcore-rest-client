@@ -1,10 +1,10 @@
 using System.Runtime.Serialization;
 using System.Text.Json.Serialization;
 
-namespace FaxCoreRestClient.Models.Response
+namespace FaxCore.Ev6.RestClient.Models.Response
 {
     /// <summary>
-    ///     Response Data for /api/messages/create
+    ///     FaxCoreResponse Data for /api/messages/create
     /// </summary>
     public class SendMessageResponse
     {

@@ -1,10 +1,10 @@
 using System;
 using System.Runtime.Serialization;
 using System.Text.Json.Serialization;
-using FaxCoreRestClient.Models.Enumerators;
-using FaxCoreRestClient.Tools;
+using FaxCore.Ev6.RestClient.Models.Enumerators;
+using FaxCore.Ev6.RestClient.Tools;
 
-namespace FaxCoreRestClient.Models.Response
+namespace FaxCore.Ev6.RestClient.Models.Response
 {
     /// <summary>
     ///     The message search item

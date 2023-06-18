@@ -1,8 +1,7 @@
 using System;
 using System.Net;
-using FaxCoreRestClient.Client;
 
-namespace FaxCoreRestClient.Models
+namespace FaxCore.Ev6.RestClient.Models
 {
     /// <summary>
     ///     FaxCore Exception
@@ -43,9 +42,9 @@ namespace FaxCoreRestClient.Models
         public HttpStatusCode ErrorCode { get; set; }
 
         /// <summary>
-        ///     Gets or sets the Http Response Body
+        ///     Gets or sets the Http FaxCoreResponse Body
         /// </summary>
-        /// <value>The Http Response Body</value>
+        /// <value>The Http FaxCoreResponse Body</value>
         public string HttpResponse { get; set; }
     }
 }

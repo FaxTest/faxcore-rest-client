@@ -1,4 +1,4 @@
-namespace FaxCoreRestClient.Models.Enumerators
+namespace FaxCore.Ev6.RestClient.Models.Enumerators
 {
     public enum Visibility
     {

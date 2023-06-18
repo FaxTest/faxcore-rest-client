@@ -1,13 +1,12 @@
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using FaxCoreRestClient.Models;
-using FaxCoreRestClient.Models.Request;
-using FaxCoreRestClient.Models.Response;
+using FaxCore.Ev6.RestClient.Models;
+using FaxCore.Ev6.RestClient.Models.Request;
+using FaxCore.Ev6.RestClient.Models.Response;
 
-namespace FaxCoreRestClient.Client
+namespace FaxCore.Ev6.RestClient
 {
-    public partial class FaxClient
+    public partial class FaxClient : IFaxClient
     {
         /// <summary>
         ///     Approves or rejects a message (/api/message/approval)
@@ -35,9 +34,9 @@ namespace FaxCoreRestClient.Client
         /// <param name="ownerId">The user Id of the user that the message belongs to</param>
         /// <param name="userList">A list of usernames to assign the fax to</param>
         /// <returns></returns>
-        public async Task<Response<string>> AssignMessage(string messageId, string ownerId, IList<string> userList)
+        public async Task<FaxCoreResponse<string>> AssignMessage(string messageId, string ownerId, IList<string> userList)
         {
-            return await _client.Put<Response<string>, object>("/api/messages/assign", new
+            return await _client.Put<FaxCoreResponse<string>, object>("/api/messages/assign", new
             {
                 messageID = messageId,
                 owner = ownerId,
@@ -50,9 +49,9 @@ namespace FaxCoreRestClient.Client
         /// </summary>
         /// <param name="messageId">The message to be cancelled</param>
         /// <returns></returns>
-        public async Task<Response<string>> CancelMessage(string messageId)
+        public async Task<FaxCoreResponse<string>> CancelMessage(string messageId)
         {
-            return await _client.Put<Response<string>, object>("/api/messages/cancel", new
+            return await _client.Put<FaxCoreResponse<string>, object>("/api/messages/cancel", new
             {
                 messageID = messageId
             });
@@ -62,10 +61,10 @@ namespace FaxCoreRestClient.Client
         ///     Send a message on behalf of another user (/api/messages/delegate)
         /// </summary>
         /// <param name="request">The message information with delegation <see cref="DelegationRequest" /></param>
-        /// <returns>Delegation response <see cref="Response{T}" /><seealso cref="DelegationResponse" /></returns>
-        public async Task<Response<DelegationResponse>> DelegateMessage(DelegationRequest request)
+        /// <returns>Delegation response <see cref="FaxCoreFaxCoreResponse{T}" /><seealso cref="DelegationResponse" /></returns>
+        public async Task<FaxCoreResponse<DelegationResponse>> DelegateMessage(DelegationRequest request)
         {
-            return await _client.Post<Response<DelegationResponse>, DelegationRequest>("/api/messages/delegate",
+            return await _client.Post<FaxCoreResponse<DelegationResponse>, DelegationRequest>("/api/messages/delegate",
                 request);
         }
 
@@ -75,12 +74,12 @@ namespace FaxCoreRestClient.Client
         /// </summary>
         /// <param name="messageId"></param>
         /// <returns>
-        ///     A response object with a list of message responses <see cref="Response{T}" />
+        ///     A response object with a list of message responses <see cref="FaxCoreFaxCoreResponse{T}" />
         ///     <seealso cref="MessageResponseList" /> <seealso cref="MessageResponse" />
         /// </returns>
-        public async Task<Response<MessageResponseList>> DeleteMessage(IList<string> messageId)
+        public async Task<FaxCoreResponse<MessageResponseList>> DeleteMessage(IList<string> messageId)
         {
-            return await _client.Delete<Response<MessageResponseList>, object>("/api/message/delete",
+            return await _client.Delete<FaxCoreResponse<MessageResponseList>, object>("/api/message/delete",
                 new { messageID = messageId });
         }
 
@@ -89,12 +88,12 @@ namespace FaxCoreRestClient.Client
         /// </summary>
         /// <param name="messageId">The ID of the message to check the delete status</param>
         /// <returns>
-        ///     A response object that contains the deleted status <see cref="Response{T}" /> (T =
+        ///     A response object that contains the deleted status <see cref="FaxCoreFaxCoreResponse{T}" /> (T =
         ///     <see cref="DeletedStatusResponse" />)
         /// </returns>
-        public async Task<Response<DeletedStatusResponse>> DeleteMessageStatus(string messageId)
+        public async Task<FaxCoreResponse<DeletedStatusResponse>> DeleteMessageStatus(string messageId)
         {
-            return await _client.Post<Response<DeletedStatusResponse>, object>("/api/message/delete_state",
+            return await _client.Post<FaxCoreResponse<DeletedStatusResponse>, object>("/api/message/delete_state",
                 new { messageID = messageId });
         }
 
@@ -104,10 +103,10 @@ namespace FaxCoreRestClient.Client
         ///     (/api/message/details)
         /// </summary>
         /// <param name="messageId">The Message Id for the message to retrieve details</param>
-        /// <returns>A response with the message details <see cref="Response{T}" /> (T = <see cref="Message" />)</returns>
-        public async Task<Response<Message>> GetMessageDetails(string messageId)
+        /// <returns>A response with the message details <see cref="FaxCoreFaxCoreResponse{T}" /> (T = <see cref="Message" />)</returns>
+        public async Task<FaxCoreResponse<Message>> GetMessageDetails(string messageId)
         {
-            return await _client.Post<Response<Message>, object>("/api/message/details",
+            return await _client.Post<FaxCoreResponse<Message>, object>("/api/message/details",
                 new { messageID = messageId });
         }
 
@@ -135,12 +134,12 @@ namespace FaxCoreRestClient.Client
         /// </summary>
         /// <param name="messageId">The Unique ID of the message to mark as downloaded</param>
         /// <returns>
-        ///     A response object with a string value indicating the message was marked downloaded <see cref="Response{T}" />
+        ///     A response object with a string value indicating the message was marked downloaded <see cref="FaxCoreFaxCoreResponse{T}" />
         ///     (T = <see cref="string" />)
         /// </returns>
-        public async Task<Response<string>> MarkMessageAsDownloaded(string messageId)
+        public async Task<FaxCoreResponse<string>> MarkMessageAsDownloaded(string messageId)
         {
-            return await _client.Post<Response<string>, object>("/api/message/downloaded",
+            return await _client.Post<FaxCoreResponse<string>, object>("/api/message/downloaded",
                 new { messageID = messageId });
         }
 
@@ -149,12 +148,12 @@ namespace FaxCoreRestClient.Client
         ///     segregation applies.
         /// </summary>
         /// <returns>
-        ///     A response with a list of Folders<see cref="Response{T}" /> (T = <see cref="List{T}" /> (T =
+        ///     A response with a list of Folders<see cref="FaxCoreFaxCoreResponse{T}" /> (T = <see cref="List{T}" /> (T =
         ///     <see cref="FolderResponse" />))
         /// </returns>
-        public async Task<Response<IList<FolderResponse>>> GetMessageFolders()
+        public async Task<FaxCoreResponse<IList<FolderResponse>>> GetMessageFolders()
         {
-            return await _client.Post<Response<IList<FolderResponse>>, object>("/api/message/folders", new { });
+            return await _client.Post<FaxCoreResponse<IList<FolderResponse>>, object>("/api/message/folders", new { });
         }
 
         /// <summary>
@@ -164,12 +163,12 @@ namespace FaxCoreRestClient.Client
         /// <param name="messageId">The unique id of the message to forward</param>
         /// <param name="userList">A list of usernames to forward the message to</param>
         /// <returns>
-        ///     A response with a string indicating the status of the forwarding. <see cref="Response{T}" /> (T =
+        ///     A response with a string indicating the status of the forwarding. <see cref="FaxCoreFaxCoreResponse{T}" /> (T =
         ///     <see cref="string" />)
         /// </returns>
-        public async Task<Response<string>> ForwardMessageToUsers(string messageId, IList<string> userList)
+        public async Task<FaxCoreResponse<string>> ForwardMessageToUsers(string messageId, IList<string> userList)
         {
-            return await _client.Post<Response<string>, object>("api/message/forward", new
+            return await _client.Post<FaxCoreResponse<string>, object>("api/message/forward", new
             {
                 messageID = messageId,
                 usernames = userList
@@ -195,10 +194,10 @@ namespace FaxCoreRestClient.Client
         /// </summary>
         /// <param name="messageId">The unique id of the message to move</param>
         /// <param name="folderName">The folder name to move the message to</param>
-        /// <returns>A response with a status string <see cref="Response{T}" /> (T=<see cref="string" />)</returns>
-        public async Task<Response<string>> MoveMessageToFolder(string messageId, string folderName)
+        /// <returns>A response with a status string <see cref="FaxCoreFaxCoreResponse{T}" /> (T=<see cref="string" />)</returns>
+        public async Task<FaxCoreResponse<string>> MoveMessageToFolder(string messageId, string folderName)
         {
-            return await _client.Post<Response<string>, object>("/api/message/move", new
+            return await _client.Post<FaxCoreResponse<string>, object>("/api/message/move", new
             {
                 messageID = messageId,
                 folder = folderName
@@ -211,10 +210,10 @@ namespace FaxCoreRestClient.Client
         /// </summary>
         /// <param name="messageId">The unique id of the message to move</param>
         /// <param name="read">Set the read status to Read (True) or Unread (False)</param>
-        /// <returns>A response with a status string <see cref="Response{T}" /> (T=<see cref="string" />)</returns>
-        public async Task<Response<string>> ToggleMessageRead(string messageId, bool read)
+        /// <returns>A response with a status string <see cref="FaxCoreFaxCoreResponse{T}" /> (T=<see cref="string" />)</returns>
+        public async Task<FaxCoreResponse<string>> ToggleMessageRead(string messageId, bool read)
         {
-            return await _client.Post<Response<string>, object>("/api/message/read", new
+            return await _client.Post<FaxCoreResponse<string>, object>("/api/message/read", new
             {
                 messageID = messageId,
                 isRead = read
@@ -225,10 +224,10 @@ namespace FaxCoreRestClient.Client
         ///     Retrieve message read status. This is a simple message read flag retrieval.
         /// </summary>
         /// <param name="messageId">The unique id of the message to move</param>
-        /// <returns>A response with the read status <see cref="Response{T}" /> (T=<see cref="ReadStatusResponse" />)</returns>
-        public async Task<Response<ReadStatusResponse>> GetMessageReadStatus(string messageId)
+        /// <returns>A response with the read status <see cref="FaxCoreFaxCoreResponse{T}" /> (T=<see cref="ReadStatusResponse" />)</returns>
+        public async Task<FaxCoreResponse<ReadStatusResponse>> GetMessageReadStatus(string messageId)
         {
-            return await _client.Post<Response<ReadStatusResponse>, object>("/api/message/read_state",
+            return await _client.Post<FaxCoreResponse<ReadStatusResponse>, object>("/api/message/read_state",
                 new { messageID = messageId });
         }
 
@@ -237,10 +236,10 @@ namespace FaxCoreRestClient.Client
         ///     (api/message/retry)
         /// </summary>
         /// <param name="messageId">The unique ID of the message to retry</param>
-        /// <returns>A response with a confirmation string <see cref="Response{T}" /> (T=<see cref="string" />)</returns>
-        public async Task<Response<string>> RetryMessage(string messageId)
+        /// <returns>A response with a confirmation string <see cref="FaxCoreFaxCoreResponse{T}" /> (T=<see cref="string" />)</returns>
+        public async Task<FaxCoreResponse<string>> RetryMessage(string messageId)
         {
-            return await _client.Post<Response<string>, object>("/api/message/retry", new { messageID = messageId });
+            return await _client.Post<FaxCoreResponse<string>, object>("/api/message/retry", new { messageID = messageId });
         }
 
         /// <summary>
@@ -265,13 +264,13 @@ namespace FaxCoreRestClient.Client
         ///     <see cref="MessageRecipient" />)
         /// </param>
         /// <returns>
-        ///     A response with a the details of the created message <see cref="Response{T}" /> (T=
+        ///     A response with a the details of the created message <see cref="FaxCoreFaxCoreResponse{T}" /> (T=
         ///     <see cref="SendMessageResponse" />)
         /// </returns>
-        public async Task<Response<SendMessageResponse>> SendMessage(
+        public async Task<FaxCoreResponse<SendMessageResponse>> SendMessage(
             SendMessageRequest<MessageRecipient> messageRequest)
         {
-            return await _client.Post<Response<SendMessageResponse>, SendMessageRequest<MessageRecipient>>(
+            return await _client.Post<FaxCoreResponse<SendMessageResponse>, SendMessageRequest<MessageRecipient>>(
                 "/api/message/send",
                 messageRequest);
         }
@@ -285,13 +284,13 @@ namespace FaxCoreRestClient.Client
         ///     <see cref="InternalRecipient" />)
         /// </param>
         /// <returns>
-        ///     A response with a the details of the created message <see cref="Response{T}" /> (T=
+        ///     A response with a the details of the created message <see cref="FaxCoreFaxCoreResponse{T}" /> (T=
         ///     <see cref="SendMessageResponse" />)
         /// </returns>
-        public async Task<Response<SendMessageResponse>> SendMessageInternal(
+        public async Task<FaxCoreResponse<SendMessageResponse>> SendMessageInternal(
             SendMessageRequest<InternalRecipient> messageRequest)
         {
-            return await _client.Post<Response<SendMessageResponse>, SendMessageRequest<InternalRecipient>>(
+            return await _client.Post<FaxCoreResponse<SendMessageResponse>, SendMessageRequest<InternalRecipient>>(
                 "/api/message/send",
                 messageRequest);
         }
@@ -301,10 +300,10 @@ namespace FaxCoreRestClient.Client
         ///     (api/message/status)
         /// </summary>
         /// <param name="messageId"></param>
-        /// <returns>A response object with a Status response <see cref="Response{T}" /> (T=<see cref="MessageStatusResponse" />)</returns>
-        public async Task<Response<MessageStatusResponse>> GetMessageStatus(string messageId)
+        /// <returns>A response object with a Status response <see cref="FaxCoreFaxCoreResponse{T}" /> (T=<see cref="MessageStatusResponse" />)</returns>
+        public async Task<FaxCoreResponse<MessageStatusResponse>> GetMessageStatus(string messageId)
         {
-            return await _client.Post<Response<MessageStatusResponse>, object>("/api/message/status",
+            return await _client.Post<FaxCoreResponse<MessageStatusResponse>, object>("/api/message/status",
                 new { messageID = messageId });
         }
 
@@ -315,9 +314,9 @@ namespace FaxCoreRestClient.Client
         /// <param name="messageId"></param>
         /// <param name="subjectString"></param>
         /// <returns>Returns a response object with a boolean status <see cref="BooleanResponse" /></returns>
-        public async Task<Response<BooleanResponse>> UpdateMessageSubject(string messageId, string subjectString)
+        public async Task<FaxCoreResponse<BooleanResponse>> UpdateMessageSubject(string messageId, string subjectString)
         {
-            return await _client.Put<Response<BooleanResponse>, object>("/api/message/subject", new
+            return await _client.Put<FaxCoreResponse<BooleanResponse>, object>("/api/message/subject", new
             {
                 messageID = messageId,
                 subject = subjectString
@@ -331,11 +330,11 @@ namespace FaxCoreRestClient.Client
         /// <param name="messageId"></param>
         /// <param name="trackingValue"></param>
         /// <param name="trackingId"></param>
-        /// <returns>Returns a response object with a string result <see cref="Response{T}" /> (T=<see cref="string" />)</returns>
-        public async Task<Response<string>> UpdateMessageTracking(string messageId, string trackingValue,
+        /// <returns>Returns a response object with a string result <see cref="FaxCoreFaxCoreResponse{T}" /> (T=<see cref="string" />)</returns>
+        public async Task<FaxCoreResponse<string>> UpdateMessageTracking(string messageId, string trackingValue,
             int trackingId = 0)
         {
-            return await _client.Put<Response<string>, object>("/api/message/tracking", new
+            return await _client.Put<FaxCoreResponse<string>, object>("/api/message/tracking", new
             {
                 messageID = messageId,
                 trackingID = trackingId,
@@ -349,12 +348,12 @@ namespace FaxCoreRestClient.Client
         /// </summary>
         /// <param name="messageId"></param>
         /// <returns>
-        ///     A response object with the tracking details for the message <see cref="Response{T}" />(T =
+        ///     A response object with the tracking details for the message <see cref="FaxCoreFaxCoreResponse{T}" />(T =
         ///     <see cref="TrackingResponse" />)
         /// </returns>
-        public async Task<Response<TrackingResponse>> GetMessageTracking(string messageId)
+        public async Task<FaxCoreResponse<TrackingResponse>> GetMessageTracking(string messageId)
         {
-            return await _client.Post<Response<TrackingResponse>, object>("/api/message/tracking", new
+            return await _client.Post<FaxCoreResponse<TrackingResponse>, object>("/api/message/tracking", new
             {
                 messageID = messageId
             });

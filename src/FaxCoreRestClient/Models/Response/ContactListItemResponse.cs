@@ -1,8 +1,8 @@
 using System.Runtime.Serialization;
 using System.Text.Json.Serialization;
-using FaxCoreRestClient.Models.Enumerators;
+using FaxCore.Ev6.RestClient.Models.Enumerators;
 
-namespace FaxCoreRestClient.Models.Response
+namespace FaxCore.Ev6.RestClient.Models.Response
 {
     public class ContactListItemResponse
     {

@@ -1,4 +1,4 @@
-namespace FaxCoreRestClient.Models.Response
+namespace FaxCore.Ev6.RestClient.Models.Response
 {
     public class PaginationResponse
     {

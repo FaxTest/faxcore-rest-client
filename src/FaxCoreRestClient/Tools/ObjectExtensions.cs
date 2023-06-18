@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Net.Http;
 
-namespace FaxCoreRestClient.Tools
+namespace FaxCore.Ev6.RestClient.Tools
 {
     public static class ObjectExtensions
     {

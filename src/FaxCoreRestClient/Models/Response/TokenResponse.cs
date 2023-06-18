@@ -1,11 +1,11 @@
 using System;
 using System.Text.Json.Serialization;
-using FaxCoreRestClient.Tools;
+using FaxCore.Ev6.RestClient.Tools;
 
-namespace FaxCoreRestClient.Models.Response
+namespace FaxCore.Ev6.RestClient.Models.Response
 {
     /// <summary>
-    ///     FaxCore API Token Response
+    ///     FaxCore API Token FaxCoreResponse
     /// </summary>
     public class TokenResponse
     {

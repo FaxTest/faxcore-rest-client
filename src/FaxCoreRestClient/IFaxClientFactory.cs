@@ -1,4 +1,4 @@
-namespace FaxCoreRestClient.Client
+namespace FaxCore.Ev6.RestClient
 {
     public interface IFaxClientFactory
     {

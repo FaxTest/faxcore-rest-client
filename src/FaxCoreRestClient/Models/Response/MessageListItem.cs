@@ -1,9 +1,9 @@
 using System;
 using System.Runtime.Serialization;
 using System.Text.Json.Serialization;
-using FaxCoreRestClient.Tools;
+using FaxCore.Ev6.RestClient.Tools;
 
-namespace FaxCoreRestClient.Models.Response
+namespace FaxCore.Ev6.RestClient.Models.Response
 {
     /// <summary>
     ///     This is the folder message list item
