@@ -6,7 +6,7 @@ namespace FaxCoreRestClient.Client
     /// <summary>
     ///     Rest Client for FaxCore
     /// </summary>
-    public partial class FaxClient
+    public partial class FaxClient : IFaxClient
     {
         private readonly FaxCoreBaseClient _client;
 

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using FaxCoreRestClient.Models;
 using FaxCoreRestClient.Models.Request;
@@ -179,10 +180,10 @@ namespace FaxCoreRestClient.Client
         ///     Retrieve user's message list from specified folder.
         /// </summary>
         /// <param name="messagesRequest">The Message List Request Object <see cref="FolderListMessagesRequest" /></param>
-        /// <returns>A paged response of Messages <see cref="PagedResponse{T}" /> (T=<see cref="MessageListResponse" />)</returns>
-        public async Task<PagedResponse<MessageListResponse>> GetMessageList(FolderListMessagesRequest messagesRequest)
+        /// <returns>A paged response of Messages <see cref="PagedResponse{T}" /> (T=<see cref="MessageListItem" />)</returns>
+        public async Task<PagedResponse<MessageListItem>> GetMessageList(FolderListMessagesRequest messagesRequest)
         {
-            return await _client.Post<PagedResponse<MessageListResponse>, FolderListMessagesRequest>(
+            return await _client.Post<PagedResponse<MessageListItem>, FolderListMessagesRequest>(
                 "/api/message/list",
                 messagesRequest);
         }

@@ -1,14 +1,14 @@
+using System;
+
 namespace FaxCoreRestClient.Models.Enumerators
 {
     public enum RoutingCondition
     {
-        BarcodeData,
-        MessageExchangeUmRecipient,
-        FaxPortNo,
-        ImageContent,
-        RoutingDigit,
-        RemoteCallerId,
-        RemoteCSID,
-        ServerName
+        BarcodeData = 1,
+        FaxPortNo = 2,
+        RoutingDigits = 3,
+        CallerId = 4,
+        RemoteCSID = 5,
+        [Obsolete] ServerName = 6,
     }
 }
