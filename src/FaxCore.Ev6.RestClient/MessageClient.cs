@@ -61,7 +61,7 @@ namespace FaxCore.Ev6.RestClient
         ///     Send a message on behalf of another user (/api/messages/delegate)
         /// </summary>
         /// <param name="request">The message information with delegation <see cref="DelegationRequest" /></param>
-        /// <returns>Delegation response <see cref="FaxCoreFaxCoreResponse{T}" /><seealso cref="DelegationResponse" /></returns>
+        /// <returns>Delegation response <see cref="FaxCoreResponse[T]" /><seealso cref="DelegationResponse" /></returns>
         public async Task<FaxCoreResponse<DelegationResponse>> DelegateMessage(DelegationRequest request)
         {
             return await _client.Post<FaxCoreResponse<DelegationResponse>, DelegationRequest>("/api/messages/delegate",
@@ -74,7 +74,7 @@ namespace FaxCore.Ev6.RestClient
         /// </summary>
         /// <param name="messageId"></param>
         /// <returns>
-        ///     A response object with a list of message responses <see cref="FaxCoreFaxCoreResponse{T}" />
+        ///     A response object with a list of message responses <see cref="FaxCoreResponse[T]" />
         ///     <seealso cref="MessageResponseList" /> <seealso cref="MessageResponse" />
         /// </returns>
         public async Task<FaxCoreResponse<MessageResponseList>> DeleteMessage(IList<string> messageId)
@@ -88,7 +88,7 @@ namespace FaxCore.Ev6.RestClient
         /// </summary>
         /// <param name="messageId">The ID of the message to check the delete status</param>
         /// <returns>
-        ///     A response object that contains the deleted status <see cref="FaxCoreFaxCoreResponse{T}" /> (T =
+        ///     A response object that contains the deleted status <see cref="FaxCoreResponse[T]" /> (T =
         ///     <see cref="DeletedStatusResponse" />)
         /// </returns>
         public async Task<FaxCoreResponse<DeletedStatusResponse>> DeleteMessageStatus(string messageId)
@@ -103,7 +103,7 @@ namespace FaxCore.Ev6.RestClient
         ///     (/api/message/details)
         /// </summary>
         /// <param name="messageId">The Message Id for the message to retrieve details</param>
-        /// <returns>A response with the message details <see cref="FaxCoreFaxCoreResponse{T}" /> (T = <see cref="Message" />)</returns>
+        /// <returns>A response with the message details <see cref="FaxCoreResponse[T]" /> (T = <see cref="Message" />)</returns>
         public async Task<FaxCoreResponse<Message>> GetMessageDetails(string messageId)
         {
             return await _client.Post<FaxCoreResponse<Message>, object>("/api/message/details",
@@ -134,7 +134,7 @@ namespace FaxCore.Ev6.RestClient
         /// </summary>
         /// <param name="messageId">The Unique ID of the message to mark as downloaded</param>
         /// <returns>
-        ///     A response object with a string value indicating the message was marked downloaded <see cref="FaxCoreFaxCoreResponse{T}" />
+        ///     A response object with a string value indicating the message was marked downloaded <see cref="FaxCoreResponse[T]" />
         ///     (T = <see cref="string" />)
         /// </returns>
         public async Task<FaxCoreResponse<string>> MarkMessageAsDownloaded(string messageId)
@@ -148,7 +148,7 @@ namespace FaxCore.Ev6.RestClient
         ///     segregation applies.
         /// </summary>
         /// <returns>
-        ///     A response with a list of Folders<see cref="FaxCoreFaxCoreResponse{T}" /> (T = <see cref="List{T}" /> (T =
+        ///     A response with a list of Folders<see cref="FaxCoreResponse[T]" /> (T = <see cref="List{T}" /> (T =
         ///     <see cref="FolderResponse" />))
         /// </returns>
         public async Task<FaxCoreResponse<IList<FolderResponse>>> GetMessageFolders()
@@ -163,7 +163,7 @@ namespace FaxCore.Ev6.RestClient
         /// <param name="messageId">The unique id of the message to forward</param>
         /// <param name="userList">A list of usernames to forward the message to</param>
         /// <returns>
-        ///     A response with a string indicating the status of the forwarding. <see cref="FaxCoreFaxCoreResponse{T}" /> (T =
+        ///     A response with a string indicating the status of the forwarding. <see cref="FaxCoreResponse[T]" /> (T =
         ///     <see cref="string" />)
         /// </returns>
         public async Task<FaxCoreResponse<string>> ForwardMessageToUsers(string messageId, IList<string> userList)
@@ -194,7 +194,7 @@ namespace FaxCore.Ev6.RestClient
         /// </summary>
         /// <param name="messageId">The unique id of the message to move</param>
         /// <param name="folderName">The folder name to move the message to</param>
-        /// <returns>A response with a status string <see cref="FaxCoreFaxCoreResponse{T}" /> (T=<see cref="string" />)</returns>
+        /// <returns>A response with a status string <see cref="FaxCoreResponse[T]" /> (T=<see cref="string" />)</returns>
         public async Task<FaxCoreResponse<string>> MoveMessageToFolder(string messageId, string folderName)
         {
             return await _client.Post<FaxCoreResponse<string>, object>("/api/message/move", new
@@ -210,7 +210,7 @@ namespace FaxCore.Ev6.RestClient
         /// </summary>
         /// <param name="messageId">The unique id of the message to move</param>
         /// <param name="read">Set the read status to Read (True) or Unread (False)</param>
-        /// <returns>A response with a status string <see cref="FaxCoreFaxCoreResponse{T}" /> (T=<see cref="string" />)</returns>
+        /// <returns>A response with a status string <see cref="FaxCoreResponse[T]" /> (T=<see cref="string" />)</returns>
         public async Task<FaxCoreResponse<string>> ToggleMessageRead(string messageId, bool read)
         {
             return await _client.Post<FaxCoreResponse<string>, object>("/api/message/read", new
@@ -224,7 +224,7 @@ namespace FaxCore.Ev6.RestClient
         ///     Retrieve message read status. This is a simple message read flag retrieval.
         /// </summary>
         /// <param name="messageId">The unique id of the message to move</param>
-        /// <returns>A response with the read status <see cref="FaxCoreFaxCoreResponse{T}" /> (T=<see cref="ReadStatusResponse" />)</returns>
+        /// <returns>A response with the read status <see cref="FaxCoreResponse[T]" /> (T=<see cref="ReadStatusResponse" />)</returns>
         public async Task<FaxCoreResponse<ReadStatusResponse>> GetMessageReadStatus(string messageId)
         {
             return await _client.Post<FaxCoreResponse<ReadStatusResponse>, object>("/api/message/read_state",
@@ -236,7 +236,7 @@ namespace FaxCore.Ev6.RestClient
         ///     (api/message/retry)
         /// </summary>
         /// <param name="messageId">The unique ID of the message to retry</param>
-        /// <returns>A response with a confirmation string <see cref="FaxCoreFaxCoreResponse{T}" /> (T=<see cref="string" />)</returns>
+        /// <returns>A response with a confirmation string <see cref="FaxCoreResponse[T]" /> (T=<see cref="string" />)</returns>
         public async Task<FaxCoreResponse<string>> RetryMessage(string messageId)
         {
             return await _client.Post<FaxCoreResponse<string>, object>("/api/message/retry", new { messageID = messageId });
@@ -264,7 +264,7 @@ namespace FaxCore.Ev6.RestClient
         ///     <see cref="MessageRecipient" />)
         /// </param>
         /// <returns>
-        ///     A response with a the details of the created message <see cref="FaxCoreFaxCoreResponse{T}" /> (T=
+        ///     A response with a the details of the created message <see cref="FaxCoreResponse[T]" /> (T=
         ///     <see cref="SendMessageResponse" />)
         /// </returns>
         public async Task<FaxCoreResponse<SendMessageResponse>> SendMessage(
@@ -284,7 +284,7 @@ namespace FaxCore.Ev6.RestClient
         ///     <see cref="InternalRecipient" />)
         /// </param>
         /// <returns>
-        ///     A response with a the details of the created message <see cref="FaxCoreFaxCoreResponse{T}" /> (T=
+        ///     A response with a the details of the created message <see cref="FaxCoreResponse[T]" /> (T=
         ///     <see cref="SendMessageResponse" />)
         /// </returns>
         public async Task<FaxCoreResponse<SendMessageResponse>> SendMessageInternal(
@@ -300,7 +300,7 @@ namespace FaxCore.Ev6.RestClient
         ///     (api/message/status)
         /// </summary>
         /// <param name="messageId"></param>
-        /// <returns>A response object with a Status response <see cref="FaxCoreFaxCoreResponse{T}" /> (T=<see cref="MessageStatusResponse" />)</returns>
+        /// <returns>A response object with a Status response <see cref="FaxCoreResponse[T]" /> (T=<see cref="MessageStatusResponse" />)</returns>
         public async Task<FaxCoreResponse<MessageStatusResponse>> GetMessageStatus(string messageId)
         {
             return await _client.Post<FaxCoreResponse<MessageStatusResponse>, object>("/api/message/status",
@@ -330,7 +330,7 @@ namespace FaxCore.Ev6.RestClient
         /// <param name="messageId"></param>
         /// <param name="trackingValue"></param>
         /// <param name="trackingId"></param>
-        /// <returns>Returns a response object with a string result <see cref="FaxCoreFaxCoreResponse{T}" /> (T=<see cref="string" />)</returns>
+        /// <returns>Returns a response object with a string result <see cref="FaxCoreResponse[T]" /> (T=<see cref="string" />)</returns>
         public async Task<FaxCoreResponse<string>> UpdateMessageTracking(string messageId, string trackingValue,
             int trackingId = 0)
         {
@@ -348,7 +348,7 @@ namespace FaxCore.Ev6.RestClient
         /// </summary>
         /// <param name="messageId"></param>
         /// <returns>
-        ///     A response object with the tracking details for the message <see cref="FaxCoreFaxCoreResponse{T}" />(T =
+        ///     A response object with the tracking details for the message <see cref="FaxCoreResponse[T]" />(T =
         ///     <see cref="TrackingResponse" />)
         /// </returns>
         public async Task<FaxCoreResponse<TrackingResponse>> GetMessageTracking(string messageId)

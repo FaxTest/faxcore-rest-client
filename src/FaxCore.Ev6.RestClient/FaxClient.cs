@@ -28,7 +28,7 @@ namespace FaxCore.Ev6.RestClient
         /// </summary>
         /// <param name="filePath">The file path to the file being uploaded</param>
         /// <returns>
-        ///     The response object with the newly created file details <see cref="FaxCoreFaxCoreResponse{T}" /> (T =
+        ///     The response object with the newly created file details <see cref="FaxCoreResponse[T]" /> (T =
         ///     <see cref="UploadResponse" />)
         /// </returns>
         public async Task<FaxCoreResponse<UploadResponse>> UploadFile(string filePath)
@@ -39,7 +39,7 @@ namespace FaxCore.Ev6.RestClient
         /// <summary>
         ///     Lists the current users cover page items
         /// </summary>
-        /// <returns><see cref="FaxCoreFaxCoreResponse{T}" />(T = <see cref="CoverPageItemResponse" /></returns>
+        /// <returns><see cref="FaxCoreResponse[T]" />(T = <see cref="CoverPageItemResponse" /></returns>
         public async Task<FaxCoreResponse<CoverPageItemResponse>> GetCoverPageItems()
         {
             return await _client.Get<FaxCoreResponse<CoverPageItemResponse>>("/api/coverpages");

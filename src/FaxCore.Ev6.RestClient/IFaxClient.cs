@@ -13,7 +13,7 @@ namespace FaxCore.Ev6.RestClient
         /// </summary>
         /// <param name="filePath">The file path to the file being uploaded</param>
         /// <returns>
-        ///     The response object with the newly created file details <see cref="FaxCoreFaxCoreResponse{T}" /> (T =
+        ///     The response object with the newly created file details <see cref="FaxCoreResponse[T]" /> (T =
         ///     <see cref="UploadResponse" />)
         /// </returns>
         Task<FaxCoreResponse<UploadResponse>> UploadFile(string filePath);
@@ -21,7 +21,7 @@ namespace FaxCore.Ev6.RestClient
         /// <summary>
         ///     Lists the current users cover page items
         /// </summary>
-        /// <returns><see cref="FaxCoreFaxCoreResponse{T}" />(T = <see cref="CoverPageItemResponse" /></returns>
+        /// <returns><see cref="FaxCoreResponse[T]" />(T = <see cref="CoverPageItemResponse" /></returns>
         Task<FaxCoreResponse<CoverPageItemResponse>> GetCoverPageItems();
 
         /// <summary>
@@ -55,7 +55,7 @@ namespace FaxCore.Ev6.RestClient
         ///     Send a message on behalf of another user (/api/messages/delegate)
         /// </summary>
         /// <param name="request">The message information with delegation <see cref="DelegationRequest" /></param>
-        /// <returns>Delegation response <see cref="FaxCoreFaxCoreResponse{T}" /><seealso cref="DelegationResponse" /></returns>
+        /// <returns>Delegation response <see cref="FaxCoreResponse[T]" /><seealso cref="DelegationResponse" /></returns>
         Task<FaxCoreResponse<DelegationResponse>> DelegateMessage(DelegationRequest request);
 
         /// <summary>
@@ -64,7 +64,7 @@ namespace FaxCore.Ev6.RestClient
         /// </summary>
         /// <param name="messageId"></param>
         /// <returns>
-        ///     A response object with a list of message responses <see cref="FaxCoreFaxCoreResponse{T}" />
+        ///     A response object with a list of message responses <see cref="FaxCoreResponse[T]" />
         ///     <seealso cref="MessageResponseList" /> <seealso cref="MessageResponse" />
         /// </returns>
         Task<FaxCoreResponse<MessageResponseList>> DeleteMessage(IList<string> messageId);
@@ -74,7 +74,7 @@ namespace FaxCore.Ev6.RestClient
         /// </summary>
         /// <param name="messageId">The ID of the message to check the delete status</param>
         /// <returns>
-        ///     A response object that contains the deleted status <see cref="FaxCoreFaxCoreResponse{T}" /> (T =
+        ///     A response object that contains the deleted status <see cref="FaxCoreResponse[T]" /> (T =
         ///     <see cref="DeletedStatusResponse" />)
         /// </returns>
         Task<FaxCoreResponse<DeletedStatusResponse>> DeleteMessageStatus(string messageId);
@@ -85,7 +85,7 @@ namespace FaxCore.Ev6.RestClient
         ///     (/api/message/details)
         /// </summary>
         /// <param name="messageId">The Message Id for the message to retrieve details</param>
-        /// <returns>A response with the message details <see cref="FaxCoreFaxCoreResponse{T}" /> (T = <see cref="Message" />)</returns>
+        /// <returns>A response with the message details <see cref="FaxCoreResponse[T]" /> (T = <see cref="Message" />)</returns>
         Task<FaxCoreResponse<Message>> GetMessageDetails(string messageId);
 
         /// <summary>
@@ -109,7 +109,7 @@ namespace FaxCore.Ev6.RestClient
         /// </summary>
         /// <param name="messageId">The Unique ID of the message to mark as downloaded</param>
         /// <returns>
-        ///     A response object with a string value indicating the message was marked downloaded <see cref="FaxCoreFaxCoreResponse{T}" />
+        ///     A response object with a string value indicating the message was marked downloaded <see cref="FaxCoreResponse[T]" />
         ///     (T = <see cref="string" />)
         /// </returns>
         Task<FaxCoreResponse<string>> MarkMessageAsDownloaded(string messageId);
@@ -119,7 +119,7 @@ namespace FaxCore.Ev6.RestClient
         ///     segregation applies.
         /// </summary>
         /// <returns>
-        ///     A response with a list of Folders<see cref="FaxCoreFaxCoreResponse{T}" /> (T = <see cref="List{T}" /> (T =
+        ///     A response with a list of Folders<see cref="FaxCoreResponse[T]" /> (T = <see cref="List{T}" /> (T =
         ///     <see cref="FolderResponse" />))
         /// </returns>
         Task<FaxCoreResponse<IList<FolderResponse>>> GetMessageFolders();
@@ -131,7 +131,7 @@ namespace FaxCore.Ev6.RestClient
         /// <param name="messageId">The unique id of the message to forward</param>
         /// <param name="userList">A list of usernames to forward the message to</param>
         /// <returns>
-        ///     A response with a string indicating the status of the forwarding. <see cref="FaxCoreFaxCoreResponse{T}" /> (T =
+        ///     A response with a string indicating the status of the forwarding. <see cref="FaxCoreResponse[T]" /> (T =
         ///     <see cref="string" />)
         /// </returns>
         Task<FaxCoreResponse<string>> ForwardMessageToUsers(string messageId, IList<string> userList);
@@ -150,7 +150,7 @@ namespace FaxCore.Ev6.RestClient
         /// </summary>
         /// <param name="messageId">The unique id of the message to move</param>
         /// <param name="folderName">The folder name to move the message to</param>
-        /// <returns>A response with a status string <see cref="FaxCoreFaxCoreResponse{T}" /> (T=<see cref="string" />)</returns>
+        /// <returns>A response with a status string <see cref="FaxCoreResponse[T]" /> (T=<see cref="string" />)</returns>
         Task<FaxCoreResponse<string>> MoveMessageToFolder(string messageId, string folderName);
 
         /// <summary>
@@ -159,14 +159,14 @@ namespace FaxCore.Ev6.RestClient
         /// </summary>
         /// <param name="messageId">The unique id of the message to move</param>
         /// <param name="read">Set the read status to Read (True) or Unread (False)</param>
-        /// <returns>A response with a status string <see cref="FaxCoreFaxCoreResponse{T}" /> (T=<see cref="string" />)</returns>
+        /// <returns>A response with a status string <see cref="FaxCoreResponse[T]" /> (T=<see cref="string" />)</returns>
         Task<FaxCoreResponse<string>> ToggleMessageRead(string messageId, bool read);
 
         /// <summary>
         ///     Retrieve message read status. This is a simple message read flag retrieval.
         /// </summary>
         /// <param name="messageId">The unique id of the message to move</param>
-        /// <returns>A response with the read status <see cref="FaxCoreFaxCoreResponse{T}" /> (T=<see cref="ReadStatusResponse" />)</returns>
+        /// <returns>A response with the read status <see cref="FaxCoreResponse[T]" /> (T=<see cref="ReadStatusResponse" />)</returns>
         Task<FaxCoreResponse<ReadStatusResponse>> GetMessageReadStatus(string messageId);
 
         /// <summary>
@@ -174,7 +174,7 @@ namespace FaxCore.Ev6.RestClient
         ///     (api/message/retry)
         /// </summary>
         /// <param name="messageId">The unique ID of the message to retry</param>
-        /// <returns>A response with a confirmation string <see cref="FaxCoreFaxCoreResponse{T}" /> (T=<see cref="string" />)</returns>
+        /// <returns>A response with a confirmation string <see cref="FaxCoreResponse[T]" /> (T=<see cref="string" />)</returns>
         Task<FaxCoreResponse<string>> RetryMessage(string messageId);
 
         /// <summary>
@@ -195,7 +195,7 @@ namespace FaxCore.Ev6.RestClient
         ///     <see cref="MessageRecipient" />)
         /// </param>
         /// <returns>
-        ///     A response with a the details of the created message <see cref="FaxCoreFaxCoreResponse{T}" /> (T=
+        ///     A response with a the details of the created message <see cref="FaxCoreResponse[T]" /> (T=
         ///     <see cref="SendMessageResponse" />)
         /// </returns>
         Task<FaxCoreResponse<SendMessageResponse>> SendMessage(
@@ -210,7 +210,7 @@ namespace FaxCore.Ev6.RestClient
         ///     <see cref="InternalRecipient" />)
         /// </param>
         /// <returns>
-        ///     A response with a the details of the created message <see cref="FaxCoreFaxCoreResponse{T}" /> (T=
+        ///     A response with a the details of the created message <see cref="FaxCoreResponse[T]" /> (T=
         ///     <see cref="SendMessageResponse" />)
         /// </returns>
         Task<FaxCoreResponse<SendMessageResponse>> SendMessageInternal(
@@ -221,7 +221,7 @@ namespace FaxCore.Ev6.RestClient
         ///     (api/message/status)
         /// </summary>
         /// <param name="messageId"></param>
-        /// <returns>A response object with a Status response <see cref="FaxCoreFaxCoreResponse{T}" /> (T=<see cref="MessageStatusResponse" />)</returns>
+        /// <returns>A response object with a Status response <see cref="FaxCoreResponse[T]" /> (T=<see cref="MessageStatusResponse" />)</returns>
         Task<FaxCoreResponse<MessageStatusResponse>> GetMessageStatus(string messageId);
 
         /// <summary>
@@ -240,7 +240,7 @@ namespace FaxCore.Ev6.RestClient
         /// <param name="messageId"></param>
         /// <param name="trackingValue"></param>
         /// <param name="trackingId"></param>
-        /// <returns>Returns a response object with a string result <see cref="FaxCoreFaxCoreResponse{T}" /> (T=<see cref="string" />)</returns>
+        /// <returns>Returns a response object with a string result <see cref="FaxCoreResponse[T]" /> (T=<see cref="string" />)</returns>
         Task<FaxCoreResponse<string>> UpdateMessageTracking(string messageId, string trackingValue,
             int trackingId = 0);
 
@@ -250,7 +250,7 @@ namespace FaxCore.Ev6.RestClient
         /// </summary>
         /// <param name="messageId"></param>
         /// <returns>
-        ///     A response object with the tracking details for the message <see cref="FaxCoreFaxCoreResponse{T}" />(T =
+        ///     A response object with the tracking details for the message <see cref="FaxCoreResponse[T]" />(T =
         ///     <see cref="TrackingResponse" />)
         /// </returns>
         Task<FaxCoreResponse<TrackingResponse>> GetMessageTracking(string messageId);
@@ -280,7 +280,7 @@ namespace FaxCore.Ev6.RestClient
         /// </summary>
         /// <param name="user">The CreateUserRequest for the user being created <see cref="CreateUserRequest" /></param>
         /// <returns>
-        ///     The response with the newly created user's UserId <see cref="FaxCoreFaxCoreResponse{T}" /> <seealso cref="UserListItem" />
+        ///     The response with the newly created user's UserId <see cref="FaxCoreResponse[T]" /> <seealso cref="UserListItem" />
         /// </returns>
         Task<FaxCoreResponse<UserListItem>> CreateUser(CreateUserRequest user);
 
@@ -289,7 +289,7 @@ namespace FaxCore.Ev6.RestClient
         ///     ("/api/users/deactivate")
         ///     <param name="users">A list of users to be deactivated</param>
         ///     <returns>
-        ///         <see cref="FaxCoreFaxCoreResponse{T}" /> <seealso cref="string" />
+        ///         <see cref="FaxCoreResponse[T]" /> <seealso cref="string" />
         ///     </returns>
         /// </summary>
         Task<FaxCoreResponse<string>> DeactivateUser(IEnumerable<string> users);
@@ -312,7 +312,7 @@ namespace FaxCore.Ev6.RestClient
         ///     The user id of the user to be deleted
         /// </param>
         /// <returns>
-        ///     <see cref="FaxCoreFaxCoreResponse{T}" /> <seealso cref="string" />
+        ///     <see cref="FaxCoreResponse[T]" /> <seealso cref="string" />
         /// </returns>
         Task<FaxCoreResponse<string>> DeleteUser(string userId);
 
@@ -324,7 +324,7 @@ namespace FaxCore.Ev6.RestClient
         ///     The userId of the user to get the details for
         /// </param>
         /// <returns>
-        ///     <see cref="FaxCoreFaxCoreResponse{T}" /> <seealso cref="UserData" />
+        ///     <see cref="FaxCoreResponse[T]" /> <seealso cref="UserData" />
         /// </returns>
         Task<FaxCoreResponse<UserData>> GetUserDetails(string userId);
 
@@ -341,7 +341,7 @@ namespace FaxCore.Ev6.RestClient
         /// <param name="userId"></param>
         /// <param name="domainName"></param>
         /// <returns>
-        ///     <see cref="FaxCoreFaxCoreResponse{T}" /> <seealso cref="string" />
+        ///     <see cref="FaxCoreResponse[T]" /> <seealso cref="string" />
         /// </returns>
         Task<FaxCoreResponse<string>> ChangeUserDomain(string userId, string domainName);
 
@@ -371,7 +371,7 @@ namespace FaxCore.Ev6.RestClient
         ///     (DELETE /api/routes/delete)
         /// </summary>
         /// <param name="routeId">The unique ID of the route to be deleted</param>
-        /// <returns><see cref="FaxCoreFaxCoreResponse{T}" /> (T=<see cref="string" />)</returns>
+        /// <returns><see cref="FaxCoreResponse[T]" /> (T=<see cref="string" />)</returns>
         Task<FaxCoreResponse<string>> DeleteRoutingRule(string routeId);
 
         /// <summary>
@@ -379,7 +379,7 @@ namespace FaxCore.Ev6.RestClient
         ///     (POST /api/routes/disable)
         /// </summary>
         /// <param name="routeId">The unique ID of the route to be disabled</param>
-        /// <returns><see cref="FaxCoreFaxCoreResponse{T}" /> (T=<see cref="string" />)</returns>
+        /// <returns><see cref="FaxCoreResponse[T]" /> (T=<see cref="string" />)</returns>
         Task<FaxCoreResponse<string>> DisableRoutingRule(string routeId);
 
         /// <summary>
@@ -387,7 +387,7 @@ namespace FaxCore.Ev6.RestClient
         ///     (POST /api/routes/enable)
         /// </summary>
         /// <param name="routeId">The unique ID of the route to be enabled</param>
-        /// <returns><see cref="FaxCoreFaxCoreResponse{T}" /> (T=<see cref="string" />)</returns>
+        /// <returns><see cref="FaxCoreResponse[T]" /> (T=<see cref="string" />)</returns>
         Task<FaxCoreResponse<string>> EnableRoutingRule(string routeId);
 
         /// <summary>
@@ -397,7 +397,7 @@ namespace FaxCore.Ev6.RestClient
         /// <param name="createRequest">
         ///     <see cref="RouteCreateRequest" />
         /// </param>
-        /// <returns><see cref="FaxCoreFaxCoreResponse{T}" /> (T = <see cref="string" />)</returns>
+        /// <returns><see cref="FaxCoreResponse[T]" /> (T = <see cref="string" />)</returns>
         Task<FaxCoreResponse<string>> CreateRoutingRule(RouteCreateRequest createRequest);
 
         /// <summary>
@@ -469,7 +469,7 @@ namespace FaxCore.Ev6.RestClient
         /// <summary>
         ///     Returns a list of domains that the current user has access to.
         /// </summary>
-        /// <returns><see cref="FaxCoreFaxCoreResponse{T}" /> (T = <see cref="string" />)</returns>
+        /// <returns><see cref="FaxCoreResponse[T]" /> (T = <see cref="string" />)</returns>
         Task<FaxCoreResponse<string>> GetDomains();
 
         /// <summary>
@@ -478,7 +478,7 @@ namespace FaxCore.Ev6.RestClient
         /// <param name="createRequest">
         ///     <see cref="DomainCreateRequest" />
         /// </param>
-        /// <returns><see cref="FaxCoreFaxCoreResponse{T}" /> (T = <see cref="string" />)</returns>
+        /// <returns><see cref="FaxCoreResponse[T]" /> (T = <see cref="string" />)</returns>
         Task<FaxCoreResponse<string>> CreateDomain(DomainCreateRequest createRequest);
     }
 }

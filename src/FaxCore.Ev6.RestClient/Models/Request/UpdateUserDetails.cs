@@ -50,7 +50,7 @@ namespace FaxCore.Ev6.RestClient.Models.Request
         public string CompanyName { get; set; }
 
         /// <summary>
-        ///     Preferred address type of the user <see cref="PreferredAddressType" />
+        ///     Preferred address type of the user <see cref="string" />
         /// </summary>
         [DataMember(Name = "preferAddressType")]
         [JsonPropertyName("preferAddressType")]

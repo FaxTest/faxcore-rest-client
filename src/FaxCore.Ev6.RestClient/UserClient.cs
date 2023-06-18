@@ -40,7 +40,7 @@ namespace FaxCore.Ev6.RestClient
         /// </summary>
         /// <param name="user">The CreateUserRequest for the user being created <see cref="CreateUserRequest" /></param>
         /// <returns>
-        ///     The response with the newly created user's UserId <see cref="FaxCoreFaxCoreResponse{T}" /> <seealso cref="UserListItem" />
+        ///     The response with the newly created user's UserId <see cref="FaxCoreResponse[T]" /> <seealso cref="UserListItem" />
         /// </returns>
         public async Task<FaxCoreResponse<UserListItem>> CreateUser(CreateUserRequest user)
         {
@@ -52,7 +52,7 @@ namespace FaxCore.Ev6.RestClient
         ///     ("/api/users/deactivate")
         ///     <param name="users">A list of users to be deactivated</param>
         ///     <returns>
-        ///         <see cref="FaxCoreFaxCoreResponse{T}" /> <seealso cref="string" />
+        ///         <see cref="FaxCoreResponse[T]" /> <seealso cref="string" />
         ///     </returns>
         /// </summary>
         public async Task<FaxCoreResponse<string>> DeactivateUser(IEnumerable<string> users)
@@ -84,7 +84,7 @@ namespace FaxCore.Ev6.RestClient
         ///     The user id of the user to be deleted
         /// </param>
         /// <returns>
-        ///     <see cref="FaxCoreFaxCoreResponse{T}" /> <seealso cref="string" />
+        ///     <see cref="FaxCoreResponse[T]" /> <seealso cref="string" />
         /// </returns>
         public async Task<FaxCoreResponse<string>> DeleteUser(string userId)
         {
@@ -99,7 +99,7 @@ namespace FaxCore.Ev6.RestClient
         ///     The userId of the user to get the details for
         /// </param>
         /// <returns>
-        ///     <see cref="FaxCoreFaxCoreResponse{T}" /> <seealso cref="UserData" />
+        ///     <see cref="FaxCoreResponse[T]" /> <seealso cref="UserData" />
         /// </returns>
         public async Task<FaxCoreResponse<UserData>> GetUserDetails(string userId)
         {
@@ -122,7 +122,7 @@ namespace FaxCore.Ev6.RestClient
         /// <param name="userId"></param>
         /// <param name="domainName"></param>
         /// <returns>
-        ///     <see cref="FaxCoreFaxCoreResponse{T}" /> <seealso cref="string" />
+        ///     <see cref="FaxCoreResponse[T]" /> <seealso cref="string" />
         /// </returns>
         public async Task<FaxCoreResponse<string>> ChangeUserDomain(string userId, string domainName)
         {

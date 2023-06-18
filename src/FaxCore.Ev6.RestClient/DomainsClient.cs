@@ -9,7 +9,7 @@ namespace FaxCore.Ev6.RestClient
         /// <summary>
         ///     Returns a list of domains that the current user has access to.
         /// </summary>
-        /// <returns><see cref="FaxCoreFaxCoreResponse{T}" /> (T = <see cref="string" />)</returns>
+        /// <returns><see cref="FaxCoreResponse[T]" /> (T = <see cref="string" />)</returns>
         public async Task<FaxCoreResponse<string>> GetDomains()
         {
             return await _client.Get<FaxCoreResponse<string>>("/api/domains");
@@ -21,7 +21,7 @@ namespace FaxCore.Ev6.RestClient
         /// <param name="createRequest">
         ///     <see cref="DomainCreateRequest" />
         /// </param>
-        /// <returns><see cref="FaxCoreFaxCoreResponse{T}" /> (T = <see cref="string" />)</returns>
+        /// <returns><see cref="FaxCoreResponse[T]" /> (T = <see cref="string" />)</returns>
         public async Task<FaxCoreResponse<string>> CreateDomain(DomainCreateRequest createRequest)
         {
             return await _client.Post<FaxCoreResponse<string>, DomainCreateRequest>("/api/domains", createRequest);
