@@ -1,4 +1,4 @@
-# FaxCore Client Library
+# FaxCore EV6 API Client Library
 
 This library is a client implementation for the FaxCore EV6 Rest API.
 

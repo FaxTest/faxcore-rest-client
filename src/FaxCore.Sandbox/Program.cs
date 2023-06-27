@@ -1,4 +1,4 @@
-﻿using FaxCoreRestClient.Client;
+﻿using FaxCore.Ev6.RestClient;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
@@ -25,9 +25,9 @@ namespace FaxCore.Sandbox
                     });
                     services.AddSingleton<Users>();
                 }).Build();
-
+            
             var users = host.Services.GetRequiredService<Users>();
-
+            
             await users.GetUsers();
         }
 
