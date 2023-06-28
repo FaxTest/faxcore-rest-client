@@ -13,6 +13,13 @@ Supported versions of .NET/Dotnet
 
 Utilizes `System.Text.Json` and `System.Net.Http`
 
+Installation:
+[Nuget](https://www.nuget.org/packages/FaxCore.Ev6.RestClient)
+
+```bash
+dotnet add package FaxCore.Ev6.RestClient --version 1.0.1
+```
+
 Usage:
 
 Setup DependencyInjection
