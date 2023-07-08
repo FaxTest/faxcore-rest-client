@@ -42,5 +42,4 @@ public class FaxClientFactoryTests
 
         Assert.IsInstanceOf<FaxClient>(client);
     }
-
 }
