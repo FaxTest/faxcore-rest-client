@@ -25,12 +25,12 @@ namespace FaxCore.Ev6.RestClient
             {
                 throw new ArgumentException(nameof(faxServerUrl));
             }
-            
+
             if (string.IsNullOrEmpty(clientId))
             {
                 throw new ArgumentException(nameof(clientId));
             }
-            
+
             if (string.IsNullOrEmpty(clientSecret))
             {
                 throw new ArgumentException(nameof(clientSecret));

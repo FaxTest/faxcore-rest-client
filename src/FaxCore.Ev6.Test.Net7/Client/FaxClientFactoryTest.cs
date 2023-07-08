@@ -9,7 +9,7 @@ public class FaxClientFactoryTests
     private readonly string _url = "https://example.com";
     private readonly string _key = "abc123";
     private readonly string _secret = "def456";
-    
+
     [SetUp]
     public void Setup()
     {
@@ -21,14 +21,14 @@ public class FaxClientFactoryTests
     {
         Assert.Throws<ArgumentException>(() =>
         {
-           _clientFactory.Create(_blank, _key, _secret);
+            _clientFactory.Create(_blank, _key, _secret);
         });
 
         Assert.Throws<ArgumentException>(() =>
         {
             _clientFactory.Create(_url, _blank, _key);
         });
-        
+
         Assert.Throws<ArgumentException>(() =>
         {
             _clientFactory.Create(_blank, _key, _secret);
@@ -39,8 +39,8 @@ public class FaxClientFactoryTests
     public void ShouldReturnFaxClientWhenConfigured()
     {
         var client = _clientFactory.Create(_url, _key, _secret);
-        
+
         Assert.IsInstanceOf<FaxClient>(client);
     }
-    
+
 }
