@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using FaxCore.Ev6.RestClient.Models.Response;
 
@@ -20,6 +21,20 @@ namespace FaxCore.Ev6.RestClient
         public FaxClient(string faxServerUrl, string clientId, string clientSecret)
 
         {
+            if (string.IsNullOrEmpty(faxServerUrl))
+            {
+                throw new ArgumentException(nameof(faxServerUrl));
+            }
+            
+            if (string.IsNullOrEmpty(clientId))
+            {
+                throw new ArgumentException(nameof(clientId));
+            }
+            
+            if (string.IsNullOrEmpty(clientSecret))
+            {
+                throw new ArgumentException(nameof(clientSecret));
+            }
             _client = new FaxCoreBaseClient(faxServerUrl, clientId, clientSecret);
         }
 
